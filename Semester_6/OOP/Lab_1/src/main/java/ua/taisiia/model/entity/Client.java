@@ -9,7 +9,7 @@ public class Client {
     private String lastName;
     private String passport;
     private LocalDate birthday;
-    private Boolean regularCustomer;
+    private Boolean regularClients;
 
     public String getFirstName() {
         return firstName;
@@ -51,11 +51,11 @@ public class Client {
         this.birthday = birthday;
     }
 
-    public Boolean getRegularCustomer() {
-        return regularCustomer;
+    public Boolean getRegularClients() {
+        return regularClients;
     }
 
-    public void setRegularCustomer(Boolean regularCustomer) {
-        this.regularCustomer = regularCustomer;
+    public void setRegularClients(Boolean regularClients) {
+        this.regularClients = regularClients;
     }
 }
