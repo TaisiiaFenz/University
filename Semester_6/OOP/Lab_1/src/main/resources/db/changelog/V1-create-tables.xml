@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Taisiia Fenz">
+
+        <createTable tableName="Client">
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar" remarks="Client's first name">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="middle_name" type="varchar" remarks="Client's middle name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar" remarks="Client's last name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passport" type="varchar" remarks="Client's passport number">
+                <constraints nullable="false" unique="true" uniqueConstraintName="passport_ix1"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
