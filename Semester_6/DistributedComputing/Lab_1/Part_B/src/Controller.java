@@ -3,9 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Spinner;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
@@ -93,7 +91,6 @@ public class Controller {
         SEMAPHORE.set(1);
 
         Thread firstThread = initSingleThread(FIRST_THREAD_TARGET, 1);
-        firstThread.setDaemon(true);
 
         semaphore_state_text.setText("LOCKED BY 1 THREAD");
         buttonVisibility(true, false, false, true);
@@ -115,7 +112,6 @@ public class Controller {
         SEMAPHORE.set(2);
 
         Thread secondThread = initSingleThread(SECOND_THREAD_TARGET, 2);
-        secondThread.setDaemon(true);
 
         semaphore_state_text.setText("LOCKED BY 2 THREAD");
         buttonVisibility(false, true, true, false);

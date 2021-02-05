@@ -69,11 +69,9 @@ public class Controller {
     private void initThreads() {
         firstThread = initSingleThread(FIRST_THREAD_TARGET, firstAlive);
         firstThread.setPriority(first_spinner.getValue());
-        firstThread.setDaemon(true);
 
         secondThread = initSingleThread(SECOND_THREAD_TARGET, secondAlive);
         secondThread.setPriority(second_spinner.getValue());
-        secondThread.setDaemon(true);
     }
 
     public void startThreads() {
@@ -102,7 +100,7 @@ public class Controller {
             button.setText("STOP");
 
             position.set(starting_spinner.getValue());
-            bar.setProgress(position.get() / 100.0);
+            bar.setProgress(position.get());
 
             starting_spinner.setDisable(true);
 
