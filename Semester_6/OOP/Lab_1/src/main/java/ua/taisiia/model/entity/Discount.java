@@ -1,9 +1,18 @@
 package ua.taisiia.model.entity;
 
 public class Discount {
+
     private Long id;
     private DiscountType discountType;
     private float discountPercentage;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public DiscountType getDiscountType() {
         return discountType;

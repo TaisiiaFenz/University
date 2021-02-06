@@ -6,8 +6,16 @@ public class Reservation {
     private Long id;
     private Long clientId;
     private Long tourId;
-    private Long saleId;
+    private Long discountId;
     private LocalDate departureDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Boolean getPaid() {
         return isPaid;
@@ -35,12 +43,12 @@ public class Reservation {
         this.tourId = tourId;
     }
 
-    public Long getSaleId() {
-        return saleId;
+    public Long getDiscountId() {
+        return discountId;
     }
 
-    public void setSaleId(Long saleId) {
-        this.saleId = saleId;
+    public void setDiscountId(Long saleId) {
+        this.discountId = saleId;
     }
 
     public LocalDate getDepartureDate() {
