@@ -1,10 +1,12 @@
 package ua.taisiia.model.dao;
-import ua.taisiia.model.exception.DataExistsException;
+//import ua.taisiia.model.exception.DataExistsException;
 
 import java.util.List;
 
 public interface Dao<T> extends AutoCloseable {
-    void create(T entity) throws DataExistsException;
+    void create(T entity)
+            //throws DataExistsException
+            ;
 
     void update(T entity);
 

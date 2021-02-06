@@ -1,5 +1,6 @@
 package ua.taisiia.model.dao;
 
+import ua.taisiia.model.dao.implementation.DaoFactoryImpl;
 import ua.taisiia.model.entity.Discount;
 
 public abstract class DaoFactory {
