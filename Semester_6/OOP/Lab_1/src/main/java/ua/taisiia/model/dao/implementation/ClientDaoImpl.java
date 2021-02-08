@@ -6,7 +6,7 @@ import ua.taisiia.model.entity.Client;
 import ua.taisiia.model.entity.DiscountType;
 import ua.taisiia.model.entity.TourType;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.LogManager;
@@ -43,9 +43,19 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public void create(Client entity)
-            //throws DataExistsException
+    //throws DataExistsException
     {
-
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLConstants.SQL_CLIENT_INSERT, Statement.RETURN_GENERATED_KEYS);
+            fillPreparedStatement(entity, preparedStatement);
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                entity.setId(generatedKeys.getLong(1));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -71,5 +81,14 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public void close() throws Exception {
 
+    }
+
+    private void fillPreparedStatement(Client entity, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, entity.getFirstName());
+        preparedStatement.setString(2, entity.getMiddleName());
+        preparedStatement.setString(3, entity.getLastName());
+        preparedStatement.setString(4, entity.getPassport());
+        preparedStatement.setDate(5, Date.valueOf(entity.getBirthday()));
+        preparedStatement.setBoolean(6, entity.getRegularClients());
     }
 }

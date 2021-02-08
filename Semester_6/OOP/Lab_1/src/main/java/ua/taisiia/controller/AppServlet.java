@@ -1,7 +1,10 @@
 package ua.taisiia.controller;
 
 import ua.taisiia.controller.command.Command;
+import ua.taisiia.controller.command.travelAgent.AddClientCommand;
+import ua.taisiia.model.service.ClientService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +14,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/add-description"})
+@WebServlet
 public class AppServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
 
 //    private DescriptionService descriptionService = new DescriptionService();
-//    private ClientService clientService = new ClientService();
+    private ClientService clientService = new ClientService();
 //    private UserService userService = new UserService();
 //    private RequestService requestService = new RequestService();
 //    private RoomService roomService = new RoomService();
 //    private ReservationService reservationService = new ReservationService();
 //    private PaginationUtility paginationUtility = new PaginationUtility();
 //
-//    public void init(ServletConfig servletConfig) {
-//        commands.put("add-description", new AddDescriptionCommand(descriptionService));
+    public void init(ServletConfig servletConfig) {
+        commands.put("add-client", new AddClientCommand(clientService));
 //        commands.put("register", new RegisterCommand(clientService));
 //        commands.put("login", new LoginCommand(userService));
 //        commands.put("logout", new LogoutCommand());
@@ -35,7 +38,7 @@ public class AppServlet extends HttpServlet {
 //        commands.put("add-reservation", new AddReservationCommand(roomService, reservationService, requestService));
 //        commands.put("reservation-info", new GetReservationInfoCommand(requestService, reservationService));
 //        commands.put("my-requests", new GetMyRequestsCommand(requestService, clientService));
-//    }
+    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
