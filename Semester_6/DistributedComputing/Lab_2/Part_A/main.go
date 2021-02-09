@@ -74,7 +74,7 @@ func findBear(id int,
 				if element {
 					fmt.Println("Beez squad ", id, " found bear in sector ",
 						sectorToString(sector), " in ", index,
-						".\nThe bear was punished! Poor poor guy!")
+						".\nThe bear was punished!")
 					fmt.Println("Beez squad ", id, " returned")
 					isBearFound <- true
 					return
@@ -97,6 +97,7 @@ func main() {
 		waitGroup.Add(1)
 		go findBear(i, &waitGroup, sectors, isBearFound)
 	}
+
 
 	for i := 0; i < N; i++ {
 		sectors <- matrix[i]
