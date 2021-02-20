@@ -1,29 +1,14 @@
 <template>
-    <div class="app-client-layout">
-        <nav-bar></nav-bar>
-        <ul class="sidenav app-sidenav open">
-            <router-link
-            v-for="link in links"
-            :key="link.url"
-            tag="li"
-            active-class="active"
-            :to="link.url"
-            >
-                <a href="#" class="waves-effect waves-teal pointer">{{ link.title }}</a>
-            </router-link>
-        </ul>
-        <main class="app-content">
-            <div class="app-page">
-                <router-view></router-view>
-            </div>
-        </main>
-    </div>
+    <main-layout
+            :links="links"
+    ></main-layout>
 </template>
 
 <script>
-    import NavBar from "../components/app/NavBar";
+    import MainLayout from "../components/app/MainLayout";
+
     export default {
-        components: {NavBar},
+        components: {MainLayout},
         data: () => ({
             links: [
                 {title: "Tours", url: "/client-tours"},
