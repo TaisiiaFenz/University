@@ -1,0 +1,112 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Taisiia Fenz">
+
+        <createTable tableName="users">
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar" remarks="Username">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar" remarks="User's password">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_role">
+            <column name="user_id" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_role_user" references="users(id)"/>
+            </column>
+            <column name="authorities" type="varchar" remarks="User role">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="client">
+            <column name="user_id" type="integer">
+                <constraints foreignKeyName="user_id_c" references="users(id)"/>
+            </column>
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar" remarks="Client's first name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="varchar" remarks="Client's middle name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar" remarks="Client's last name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passport" type="varchar" remarks="Client's passport number">
+                <constraints nullable="false" unique="true" uniqueConstraintName="passport_ix1"/>
+            </column>
+            <column name="birthday" type="varchar" remarks="Client's birthday">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regular_clients" type="boolean" remarks="Is regular client">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="tour">
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar" remarks="Tour name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar" remarks="Tour country">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar" remarks="Tour type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal" remarks="Tour price">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isHot" type="boolean" remarks="If it is true, the tour is hot"/>
+            <column name="reservation_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="discount">
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type" type="varchar" remarks="Discount type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="percentage" type="tinyint" remarks="Discount percentage">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="reservation">
+            <column name="id" type="integer">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="client_id" type="integer" remarks="Client id">
+                <constraints nullable="false" foreignKeyName="fk_reservation_client" references="client(id)"/>
+            </column>
+            <column name="tour_id" type="integer" remarks="Tour id">
+                <constraints nullable="false" foreignKeyName="fk_reservation_tour" references="tour(id)"/>
+            </column>
+            <column name="discount_id" type="integer" remarks="Discount id">
+                <constraints foreignKeyName="fk_reservation_discount" references="discount(id)"/>
+            </column>
+            <column name="start_date" type="date" remarks="Start tour date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date" remarks="End tour date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
