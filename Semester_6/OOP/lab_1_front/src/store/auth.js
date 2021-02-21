@@ -7,6 +7,7 @@ export default {
                 console.log(email, password);
                 let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
                 console.log(response);
+                //TODO: отправить логин с паролем и вернуть роль
                 // let res = await this.axios
                 //     .get('https://api.coindesk.com/v1/bpi/currentprice.json')
                 //     .then(response => (console.log(response)));
@@ -15,6 +16,12 @@ export default {
             } catch (e) {
                 throw e
             }
+        },
+        getUid() {
+            //TODO: get id of user?
+            // const user = firebase.auth().currentUser;
+            // return user ? user.uid : null;
+            return 1;
         }
     }
 

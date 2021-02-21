@@ -8,6 +8,7 @@ export default {
                 console.log(firstName, lastName);
                 let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
                 console.log(response);
+                //TODO: отправить запрос с новым клиентом на бек
                 // let res = await this.axios
                 //     .get('https://api.coindesk.com/v1/bpi/currentprice.json')
                 //     .then(response => (console.log(response)));

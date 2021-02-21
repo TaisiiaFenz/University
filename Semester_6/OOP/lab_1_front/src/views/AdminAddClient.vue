@@ -47,13 +47,15 @@
                 >
                 <label for="birthday">Birthday</label>
             </div>
-<!--            <div class="input-checkBox">-->
-<!--                <input-->
-<!--                        id="checkBox"-->
-<!--                        type="checkbox"-->
-<!--                >-->
-<!--                <label for="checkBox">Regular client</label>-->
-<!--            </div>-->
+            <div class="input-checkBox">
+                <input
+                        id="checkBox"
+                        type="checkbox"
+                        class="custom-checkbox"
+                        v-model="regularClient"
+                >
+                <label for="checkBox">Regular client</label>
+            </div>
             <div class="input-field">
                 <input
                         id="clientEmail"
@@ -95,6 +97,7 @@
             lastName: '',
             passport: '',
             birthday: '',
+            regularClient: '',
             clientEmail: '',
             clientPassword: ''
         }),
@@ -106,6 +109,7 @@
                     lastName: this.lastName,
                     passport: this.passport,
                     birthday: this.birthday,
+                    regularClient: this.regularClient,
                     clientEmail: this.clientEmail,
                     clientPassword: this.clientPassword
                 }
@@ -122,9 +126,6 @@
     .add-client-card {
         margin-left: auto;
         margin-right: auto;
-    }
-    .input-checkBox {
-        padding-bottom: 30px;
     }
 </style>
 

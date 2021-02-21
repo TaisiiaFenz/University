@@ -25,6 +25,11 @@
         },
         data: () => ({
             isOpen: true
-        })
+        }),
+        async mounted() {
+            if (!Object.keys(this.$store.getters.tours).length) {
+                await this.$store.dispatch('fetchTours');
+            }
+        }
     }
 </script>
