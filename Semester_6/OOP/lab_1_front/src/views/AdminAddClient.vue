@@ -1,38 +1,131 @@
 <template>
-    <form class="card auth-card">
+    <form class="card auth-card add-client-card" @submit.prevent="submitClient">
         <div class="card-content">
-            <span class="card-title">Add user</span>
-<!--            <div class="input-field">-->
+            <span class="card-title">Add client</span>
+            <div class="input-field">
+                <input
+                        id="firstName"
+                        type="text"
+                        class="validate"
+                        v-model="firstName"
+                >
+                <label for="firstName">First name</label>
+            </div>
+            <div class="input-field">
+                <input
+                        id="middleName"
+                        type="text"
+                        class="validate"
+                        v-model="middleName"
+                >
+                <label for="middleName">Middle name</label>
+            </div>
+            <div class="input-field">
+                <input
+                        id="lastName"
+                        type="text"
+                        class="validate"
+                        v-model="lastName"
+                >
+                <label for="lastName">Last name</label>
+            </div>
+            <div class="input-field">
+                <input
+                        id="passport"
+                        type="text"
+                        class="validate"
+                        v-model="passport"
+                >
+                <label for="passport">Passport</label>
+            </div>
+            <div class="input-field">
+                <input
+                        id="birthday"
+                        type="date"
+                        class="validate"
+                        v-model="birthday"
+                >
+                <label for="birthday">Birthday</label>
+            </div>
+<!--            <div class="input-checkBox">-->
 <!--                <input-->
-<!--                        id="email"-->
-<!--                        type="text"-->
-<!--                        class="validate"-->
+<!--                        id="checkBox"-->
+<!--                        type="checkbox"-->
 <!--                >-->
-<!--                <label for="email">Email</label>-->
-<!--                <small class="helper-text invalid">Email</small>-->
+<!--                <label for="checkBox">Regular client</label>-->
 <!--            </div>-->
-<!--            <div class="input-field">-->
-<!--                <input-->
-<!--                        id="password"-->
-<!--                        type="password"-->
-<!--                        class="validate"-->
-<!--                >-->
-<!--                <label for="password">Password</label>-->
-<!--                <small class="helper-text invalid">Password</small>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card-action">-->
-<!--            <div>-->
-<!--                <button-->
-<!--                        class="btn waves-effect waves-light auth-submit"-->
-<!--                        type="submit"-->
-<!--                >-->
-<!--                    Sign in-->
-<!--                    <i class="material-icons right">send</i>-->
-<!--                </button>-->
-<!--            </div>-->
+            <div class="input-field">
+                <input
+                        id="clientEmail"
+                        type="text"
+                        class="validate"
+                        v-model="clientEmail"
+                >
+                <label for="clientEmail">Client email</label>
+            </div>
+            <div class="input-field">
+                <input
+                        id="clientPassword"
+                        type="password"
+                        class="validate"
+                        v-model="clientPassword"
+                >
+                <label for="clientPassword">Client password</label>
+            </div>
+        </div>
+        <div class="card-action">
+            <div>
+                <button
+                        class="btn waves-effect waves-light auth-submit"
+                        type="submit"
+                >
+                    Add client
+                </button>
+            </div>
         </div>
     </form>
 </template>
+
+<script>
+    export default {
+        name: "AdminAddClient",
+        data: () => ({
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            passport: '',
+            birthday: '',
+            clientEmail: '',
+            clientPassword: ''
+        }),
+        methods: {
+            async submitClient() {
+                const formData = {
+                    firstName: this.firstName,
+                    middleName: this.middleName,
+                    lastName: this.lastName,
+                    passport: this.passport,
+                    birthday: this.birthday,
+                    clientEmail: this.clientEmail,
+                    clientPassword: this.clientPassword
+                }
+
+                try {
+                    await this.$store.dispatch('addClient', formData);
+                } catch (e) {}
+            }
+        }
+    }
+</script>
+
+<style>
+    .add-client-card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .input-checkBox {
+        padding-bottom: 30px;
+    }
+</style>
 
 

@@ -71,12 +71,21 @@
             password: {required, minLength: minLength(6)}
         },
         methods: {
-            submitHandler() {
+            async submitHandler() {
                 if (this.$v.$invalid) {
                     this.$v.$touch();
                     return
                 }
-                this.$router.push('/add-client')
+                const formData = {
+                    email: this.email,
+                    password: this.password
+                }
+
+                try {
+                    //тут чтото вернется и мы сможем проверить на какую страницу его отправить
+                    await this.$store.dispatch('login', formData);
+                    this.$router.push('/add-client');
+                } catch (e) {}
             }
         }
     }
