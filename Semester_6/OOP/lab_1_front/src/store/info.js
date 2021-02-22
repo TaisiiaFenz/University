@@ -32,7 +32,7 @@ export default {
                 commit('setTours', info.tours);
             } catch (e) {}
         },
-        async updateTours({dispatch, commit}, formData) {
+        async updateTour({dispatch, commit}, checkBoxId) {
             try {
                 let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
                 console.log(response);

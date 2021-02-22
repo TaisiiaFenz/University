@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitTours">
+    <form>
         <ul class="tour-list">
                         <li v-for="tour of tours"
                         :key="tour"
@@ -15,15 +15,15 @@
                             <div class="tour-price">
                                 <p>{{tour.price}}</p>
                             </div>
-                            <div class="tour-checkbox">
+                            <div class="tour-checkbox" v-on:click="updateTour()">
                                 <p>
                                     <input
                                             type="checkbox"
-                                            id="checkbox`${tour.id}`"
+                                            :id="tour.id"
                                             class="custom-checkbox"
                                             v-model="tour.isLastMinuteTour"
                                     ></input>
-                                    <label for="checkbox`${tour.id}`"></label>
+                                    <label :for="tour.id"></label>
                                 </p>
                             </div>
                         </li>
@@ -50,18 +50,13 @@
             }
         },
         methods: {
-            async submitTours() {
-                const formData = [];
-                for (let tour of this.tours) {
-                    formData[tour.id] = `${tour.isLastMinuteTour}`;
+            async updateTour() {
+                console.log(event.target.id);
+                let checkBoxId;
+                if (event.target.id) {
+                    checkBoxId = event.target.id;
+                    await this.$store.dispatch('updateTour', checkBoxId);
                 }
-                try {
-                    await this.$store.dispatch('updateTours', formData);
-                } catch (e) {}
-
-
-                //обновляем туры после изменений
-                await this.$store.dispatch('fetchTours');
             }
         }
     }
