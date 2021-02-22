@@ -28,16 +28,6 @@
                             </div>
                         </li>
         </ul>
-        <div class="card-action">
-            <div>
-                <button
-                        class="btn waves-effect waves-light auth-submit"
-                        type="submit"
-                >
-                    Save changes
-                </button>
-            </div>
-        </div>
     </form>
 </template>
 
@@ -51,7 +41,7 @@
         },
         methods: {
             async updateTour() {
-                console.log(event.target.id);
+                // console.log(event.target.id);
                 let checkBoxId;
                 if (event.target.id) {
                     checkBoxId = event.target.id;

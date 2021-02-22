@@ -45,7 +45,7 @@ export default {
             } catch (e) {
                 throw e
             }
-        }
+        },
     },
     getters: {
         tours: s => s.tours

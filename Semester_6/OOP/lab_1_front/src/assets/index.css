@@ -143,3 +143,28 @@
     display: block;
     padding-right: 50px;
 }
+
+.tour-block {
+    display: block;
+}
+
+.tour-discount {
+    width: 200px;
+    font-size: 15px;
+}
+
+.tour-buttons {
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+.tour-button {
+    display: block;
+    background-color: #26A69A;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    width: 150px;
+    height: 35px;
+    margin-bottom: 10px;
+}
