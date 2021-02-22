@@ -1,6 +1,6 @@
 <template>
     <ul class="tour-list">
-        <li v-for="tour of tours"
+        <li v-for="tour of reservedTours"
             :key="tour"
         >
             <div class="tour-info">
@@ -40,14 +40,19 @@
             if (!Object.keys(this.$store.getters.discountOptions).length) {
                 await this.$store.dispatch('fetchDiscountOptions');
             }
+            if (!Object.keys(this.$store.getters.reservedTours).length) {
+                await this.$store.dispatch('fetchReservedTours');
+            }
         },
         computed: {
             tours() {
                 return this.$store.getters.tours;
             },
             discountOptions() {
-                console.log(this.$store.getters.discountOptions);
                 return this.$store.getters.discountOptions;
+            },
+            reservedTours() {
+                return this.$store.getters.reservedTours;
             }
         },
         methods: {

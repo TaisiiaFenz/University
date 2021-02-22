@@ -19,15 +19,6 @@ const routes = [
       import("../views/AdminAddClient.vue")
   },
   {
-    path: "/add-tour",
-    name: "AddTour",
-    meta: {
-      layout: "admin"
-    },
-    component: () =>
-        import("../views/AdminAddTour.vue")
-  },
-  {
     path: "/reserved-tour",
     name: "AdminReservedTour",
     meta: {
@@ -35,15 +26,6 @@ const routes = [
     },
     component: () =>
         import("../views/AdminReservedTours.vue")
-  },
-  {
-    path: "/accepted-tour",
-    name: "AdminAcceptedTour",
-    meta: {
-      layout: "admin"
-    },
-    component: () =>
-        import("../views/AdminAcceptedTours.vue")
   },
   {
     path: "/admin-tours",
