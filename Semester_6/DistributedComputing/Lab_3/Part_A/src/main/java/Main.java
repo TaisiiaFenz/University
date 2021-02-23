@@ -1,15 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        HoneyJar jar = new HoneyJar(Settings.JAR_VOLUME);
-        MySemaphore semaphore = new MySemaphore();
-        Bear bear = new Bear(jar, semaphore);
-        Bee[] bees = new Bee[Settings.BEES_COUNT];
+        final int potCapacity = 30;
+        final int beesNumber = 3;
 
+        Pot pot = new Pot(potCapacity);
+        Bear bear = new Bear(pot);
         new Thread(bear).start();
-
-        for (int i = 0; i < Settings.BEES_COUNT; i++) {
-            bees[i] = new Bee(jar, bear, semaphore, i);
-            new Thread(bees[i]).start();
+        for (int i = 0; i < beesNumber; i++) {
+            new Thread(new Bee(i, pot, bear)).start();
         }
     }
 }

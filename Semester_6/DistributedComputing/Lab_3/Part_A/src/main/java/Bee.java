@@ -1,38 +1,26 @@
 public class Bee implements Runnable{
-    private HoneyJar jar;
-    private Bear bear;
-    private MySemaphore semaphore;
-
     private int id;
+    private Pot pot;
+    private Bear bear;
 
-    public Bee(HoneyJar jar, Bear bear, MySemaphore semaphore, int id) {
-        this.jar = jar;
-        this.bear = bear;
-        this.semaphore = semaphore;
+    Bee(int id, Pot pot, Bear bear) {
         this.id = id;
+        this.pot = pot;
+        this.bear = bear;
     }
-
 
     @Override
     public void run() {
-        System.out.println("Bee " + id + " created");
         while (true) {
-            semaphore.take();
             try {
-                Thread.sleep(Settings.SLEEP_INTERVAL);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Bee " + id + " filled jar with 1 sip");
-            jar.fill();
-
-            if (jar.isFull()) {
-                semaphore.release();
-                System.out.println("Jar is full. Waking up the bear!");
+            pot.addHoney(id);
+            if (pot.isFull()) {
+                System.out.println("Pot is full");
                 bear.wakeUp();
-            } else {
-                semaphore.release();
             }
 
         }
