@@ -1,36 +1,52 @@
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Loader extends Thread{
-    private AtomicBoolean isWorking;
-    private AtomicBoolean thiefWorking;
-    private AtomicBoolean accountantWorking;
-    ItemQueue fromThief;
-    private ItemQueue toAccountant;
+public class Loader implements Runnable{
+    private Thread thread;
+    private volatile Queue<Integer> buffer;
+    private Accountant nechypurenko;
+    private volatile Vehicle vehicle;
+    private volatile boolean isRunning;
+    private volatile Util switcher;
 
-    Loader(ItemQueue fromThief, ItemQueue toAccountant,
-           AtomicBoolean thiefWorking, AtomicBoolean isWorking, AtomicBoolean accountantWorking) {
-        this.fromThief = fromThief;
-        this.toAccountant = toAccountant;
-        this.isWorking = isWorking;
-        this.thiefWorking = thiefWorking;
-        this.accountantWorking = accountantWorking;
+    Loader(Queue<Integer> buffer, Vehicle vehicle, Util switcher,Accountant nechypurenko) {
+        this.buffer = buffer;
+        this.vehicle = vehicle;
+        this.switcher = switcher;
+        this.nechypurenko = nechypurenko;
+        thread = new Thread(this, "Petrov");
+        isRunning = true;
+        thread.start();
     }
 
-    @Override
     public void run() {
-        Item item;
-        while (isWorking.get() || !fromThief.isEmpty()) {
-            item = fromThief.get();
-            System.out.println("Loader loaded item  #" + item.getCode() + " : $" + item.getPrice());
-            try {
-                sleep(Settings.DELAY);
-            } catch (InterruptedException e) {
-                this.interrupt();
-            }
-            toAccountant.add(item);
-            if (fromThief.isEmpty() && !thiefWorking.get()) {
-                accountantWorking.set(false);
+        while (isRunning) {
+            synchronized (buffer) {
+                if (!buffer.isEmpty() && switcher.getIsLastElementCounted()) {
+                    vehicle.addElement(buffer.poll());
+                    switcher.setIsLastElementCounted(false);
+                }
             }
         }
+        int elementsLeft;
+        synchronized (buffer) {
+            elementsLeft = buffer.size();
+        }
+        while (elementsLeft > 0) {
+            if (switcher.getIsLastElementCounted()) {
+                synchronized (buffer) {
+                    vehicle.addElement(buffer.poll());
+                    elementsLeft = buffer.size();
+                    System.out.println("Petrenko add item to car");
+                }
+                switcher.setIsLastElementCounted(false);
+            }
+
+        }
+        nechypurenko.stop();
+    }
+
+    void stop() {
+        isRunning = false;
     }
 }

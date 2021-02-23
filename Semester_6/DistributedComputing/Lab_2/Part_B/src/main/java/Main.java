@@ -1,26 +1,39 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
+    private Vehicle truck;
+    private Stock stock;
+    private volatile Queue<Integer> buffer;
+    private Thief ivanov;
+    private Accountant necheporchuk;
+    private Loader petrov;
+    private volatile Util switcher;
+    private final int numberOfThings = 5;
+
     public static void main(String[] args) {
-        AtomicBoolean thiefWorking = new AtomicBoolean(true);
-        AtomicBoolean loaderWorking = new AtomicBoolean(true);
-        AtomicBoolean accountantWorking = new AtomicBoolean(true);
+        Main mainClass = new Main();
 
-        ItemQueue fromThief = new ItemQueue(Settings.MAX_ELEMENTS);
-        ItemQueue toAccountant = new ItemQueue(Settings.MAX_ELEMENTS);
+        mainClass.start();
+    }
 
-        Thief thief = new Thief(fromThief, thiefWorking, loaderWorking);
-        Loader loader = new Loader(fromThief, toAccountant, thiefWorking, loaderWorking, accountantWorking);
-        Accountant accountant = new Accountant(toAccountant, loaderWorking, accountantWorking);
+    void start() {
+        truck = new Vehicle();
+        stock = new Stock(numberOfThings);
+        buffer = new LinkedList<>();
+        switcher = new Util();
+        necheporchuk = new Accountant(buffer, switcher, this);
+        petrov = new Loader(buffer, truck, switcher, necheporchuk);
+        ivanov = new Thief(stock, buffer, petrov);
 
-        thief.start();
-        loader.start();
-        accountant.start();
-
-        try {
-            accountant.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        synchronized (this) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        System.out.println("End of operation.");
     }
 }

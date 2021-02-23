@@ -1,38 +1,26 @@
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Queue;
 
-public class Thief extends Thread {
-    private AtomicBoolean isWorking;
-    AtomicBoolean loaderWorking;
-    ItemQueue queue;
-    private Random random = new Random(System.currentTimeMillis());
-    private int stolenItems = 0;
+public class Thief implements Runnable {
+    private Thread thread;
+    private Stock stock;
+    private volatile Queue buffer;
+    private Loader petrov;
 
-    Thief(ItemQueue queue, AtomicBoolean isWorking, AtomicBoolean loaderWorking) {
-        this.queue = queue;
-        this.isWorking = isWorking;
-        this.loaderWorking = loaderWorking;
+    Thief(Stock stock, Queue<Integer> buffer, Loader petrov) {
+        this.stock = stock;
+        this.buffer = buffer;
+        this.petrov = petrov;
+        thread = new Thread(this, "Ivanov");
+        thread.start();
     }
 
-    @Override
     public void run() {
-        while (isWorking.get()) {
-                    Item newItem = new Item(stolenItems,
-                    random.nextInt(50) * 100);
-            queue.add(newItem);
-            System.out.println("Thief find(create) item");
-            stolenItems++;
-            System.out.println("Thief put item " + "#" + newItem.getCode() + " : $" + newItem.getPrice());
-            if (stolenItems >= Settings.ALL_ELEMENTS) {
-                System.out.println("Items have ended!");
-                isWorking.set(false);
-                loaderWorking.set(false);
-            }
-            try {
-                sleep(Settings.DELAY);
-            } catch (InterruptedException e) {
-                this.interrupt();
+        while (!stock.isEmpty()) {
+            synchronized (buffer) {
+                buffer.add(stock.getStuff());
+                System.out.println("Ivanov get from stock");
             }
         }
+        petrov.stop();
     }
 }
