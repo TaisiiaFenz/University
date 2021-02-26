@@ -53,15 +53,6 @@ const routes = [
     },
     component: () =>
         import("../views/ClientReservedTours.vue")
-  },
-  {
-    path: "/client-accepted-tours",
-    name: "ClientAcceptedTours",
-    meta: {
-      layout: "client"
-    },
-    component: () =>
-        import("../views/ClientAcceptedTours.vue")
   }
 ];
 

@@ -58,7 +58,6 @@
         methods: {
             async approveTour() {
                 console.log(event.target.id);
-                let tour = this.tours.find(item => item.id == event.target.id);
                 let discountIndex = event.target.parentNode.previousElementSibling.firstElementChild.selectedIndex;
                 const formData = {
                     "reservationId": event.target.id,

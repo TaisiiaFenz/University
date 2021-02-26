@@ -77,7 +77,7 @@
                     return
                 }
                 const formData = {
-                    email: this.email,
+                    login: this.email,
                     password: this.password
                 }
 
