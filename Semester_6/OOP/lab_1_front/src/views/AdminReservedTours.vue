@@ -64,19 +64,19 @@
                     "discountId": discountIndex
                 };
 
-                try {
+                //try {
                     //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('approveTour', formData);
-                } catch (e) {}
+                //} catch (e) {}
             },
             async notApproveTour() {
                 const formData = {
                     "reservationId": event.target.id
                 };
-                try {
+                //try {
                     //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('notApproveTour', formData);
-                } catch (e) {}
+                //} catch (e) {}
             }
         }
     };

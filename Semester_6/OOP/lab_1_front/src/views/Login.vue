@@ -68,7 +68,7 @@
         }),
         validations: {
             email: {email, required},
-            password: {required, minLength: minLength(6)}
+            password: {required, minLength: minLength(3)}
         },
         methods: {
             async submitHandler() {
@@ -81,11 +81,16 @@
                     password: this.password
                 }
 
-                try {
-                    //тут чтото вернется и мы сможем проверить на какую страницу его отправить
-                    await this.$store.dispatch('login', formData);
+                    let resultData = await this.$store.dispatch('login', formData);
+                console.log(resultData);
+                if (!resultData) {
+                    alert("Try one more time");
+                } else if (resultData.role == 'AGENT') {
                     this.$router.push('/add-client');
-                } catch (e) {}
+                } else if (resultData.role == 'USER') {
+                    //как то передать айдишку юзера
+                    this.$router.push('/client-tours');
+                }
             }
         }
     }
