@@ -12,8 +12,7 @@
         data: () => ({
             links: [
                 {title: "Tours", url: "/client-tours"},
-                {title: "Reserved tours", url: "/client-reserved-tours"},
-                {title: "Accepted tours", url: "/client-accepted-tours"}
+                {title: "Reserved tours", url: "/client-reserved-tours"}
             ]
         })
     }

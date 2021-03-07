@@ -57,7 +57,9 @@
                 try {
                     //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('reserveTourByClient', formData);
-                } catch (e) {}
+                } catch (e) {
+                    alert("sorry");
+                }
             }
         }
     };

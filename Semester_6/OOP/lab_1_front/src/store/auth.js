@@ -1,6 +1,14 @@
 import jwt_decode from "jwt-decode";
 
 export default {
+    state: {
+        userToken: String,
+    },
+    mutations: {
+        setUserToken(state, userToken) {
+            this.userToken = userToken;
+        }
+    },
     actions: {
         async login({dispatch, commit}, formData) {
             let respJson;
@@ -19,6 +27,8 @@ export default {
                 alert("Sorry, there is no such client :(");
             } else {
                 let token = respJson.token;
+                commit('setUserToken', token);
+                //console.log(state.userToken);
                 let decoded = jwt_decode(token);
                 let resultData = {
                     role: decoded.authorities,
@@ -27,5 +37,8 @@ export default {
                 return resultData;
             }
         }
+    },
+    getters: {
+        userToken: s => s.userToken
     }
 }

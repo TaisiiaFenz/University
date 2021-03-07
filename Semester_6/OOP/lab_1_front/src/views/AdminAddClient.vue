@@ -47,15 +47,6 @@
                 >
                 <label for="birthday">Birthday</label>
             </div>
-            <div class="input-checkBox">
-                <input
-                        id="checkBox"
-                        type="checkbox"
-                        class="custom-checkbox"
-                        v-model="regularClient"
-                >
-                <label for="checkBox">Regular client</label>
-            </div>
             <div class="input-field">
                 <input
                         id="clientEmail"
@@ -97,26 +88,26 @@
             lastName: '',
             passport: '',
             birthday: '',
-            regularClient: '',
             clientEmail: '',
             clientPassword: ''
         }),
         methods: {
             async submitClient() {
                 const formData = {
+                    login: this.clientEmail,
+                    password: this.clientPassword,
                     firstName: this.firstName,
                     middleName: this.middleName,
                     lastName: this.lastName,
                     passport: this.passport,
-                    birthday: this.birthday,
-                    regularClient: this.regularClient,
-                    clientEmail: this.clientEmail,
-                    clientPassword: this.clientPassword
+                    birthday: this.birthday
                 }
 
                 try {
                     await this.$store.dispatch('addClient', formData);
-                } catch (e) {}
+                } catch (e) {
+                    alert("Sorry, smth go wrong :(");
+                }
             }
         }
     }
