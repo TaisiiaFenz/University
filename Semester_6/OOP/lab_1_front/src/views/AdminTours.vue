@@ -22,8 +22,8 @@
                                             :id="tour.id"
                                             class="custom-checkbox"
                                             v-model="tour.isLastMinuteTour"
-                                    ></input>
-                                    <label :for="tour.id"></label>
+                                    >
+                                    <label :for="tour.id">Hot tour</label>
                                 </p>
                             </div>
                         </li>
@@ -41,7 +41,7 @@
         },
         methods: {
             async updateTour() {
-                // console.log(event.target.id);
+                console.log(event.target.id);
                 let checkBoxId;
                 if (event.target.id) {
                     checkBoxId = event.target.id;
@@ -53,8 +53,11 @@
 </script>
 
 <style scoped>
-    .card-action {
-        width: 200px;
-        float: right;
+    .tour-list li {
+        margin-bottom: 20px;
+    }
+    .tour-info {
+        width: 250px;
+        height: 120px;
     }
 </style>

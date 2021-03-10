@@ -47,15 +47,24 @@
         methods: {
             async reserveTour() {
                 let startData = event.target.parentNode.previousElementSibling.firstElementChild.value;
-                let duration = event.target.parentNode.previousElementSibling.previousElementSibling.firstElementChild.value;
+                //let duration = event.target.parentNode.previousElementSibling.previousElementSibling.firstElementChild.value;
+                // console.log(this.userToken);
+                // let decoded = jwt_decode(this.userToken);
+                // let resultData = {
+                //     role: decoded.authorities,
+                //     userId: decoded.user_id
+                // };
+                // console.log(resultData);
                 const formData = {
-                    "reservationId": event.target.id,
-                    "startData": startData,
-                    "duration": duration
+                    //"client_id": resultData.userId,
+                    "tourId": event.target.id,
+                    "startDate": startData,
+                    "endDate": "2021-04-20"
+                    //"duration": duration
                 };
+                console.log(formData);
 
                 try {
-                    //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('reserveTourByClient', formData);
                 } catch (e) {
                     alert("sorry");
@@ -64,3 +73,13 @@
         }
     };
 </script>
+
+<style scoped>
+    .tour-list li {
+        margin-bottom: 20px;
+    }
+    .tour-info {
+        width: 250px;
+        height: 120px;
+    }
+</style>

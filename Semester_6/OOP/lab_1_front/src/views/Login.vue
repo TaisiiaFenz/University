@@ -87,7 +87,7 @@
                     alert("Try one more time");
                 } else if (resultData.role == 'AGENT') {
                     this.$router.push('/add-client');
-                } else if (resultData.role == 'USER') {
+                } else if (resultData.role == 'CLIENT') {
                     //как то передать айдишку юзера
                     this.$router.push('/client-tours');
                 }

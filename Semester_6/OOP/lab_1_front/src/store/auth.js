@@ -16,7 +16,6 @@ export default {
             try {
                 let resp = await fetch('http://localhost:8083/login', {
                     method: 'POST',
-                    //mode: 'no-cors',
                     body: JSON.stringify(formData)
                 });
                 respJson = await resp.json();

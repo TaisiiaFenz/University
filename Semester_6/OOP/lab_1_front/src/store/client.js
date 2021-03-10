@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode"
+
 export default {
     state: {
         reservedToursByClient: []
@@ -10,32 +12,53 @@ export default {
     actions: {
         async reserveTourByClient({dispatch, commit}, formData) {
             try {
-                let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+                console.log(dispatch, commit);
+                let token = this.userToken;
+                console.log(token);
+                let decoded = jwt_decode(token);
+                let resultData = {
+                    role: decoded.authorities,
+                    userId: decoded.user_id
+                };
+                console.log(resultData);
+                formData["userId"] = `${resultData.userId}`;
+                console.log(formData);
+                let response = await fetch('http://localhost:8083/reserve-tour', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(formData)
+                });
                 console.log(response);
-                //TODO отправить запрос на бек со скидоном и айди тура
             } catch (e) {
+                alert("Sorry, sth go wrong:(");
             }
         },
-        async fetchReservedToursByClient({dispatch, commit}, clientId) {
+        async fetchReservedToursByClient({dispatch, commit}) {
             try {
-                //TODO: как нить получить список зарезервированных туров по конкретному пользователю
-                // const uid = await dispatch('getUid');
-                // //как нить получить общий список туров
-                // const info = await (firebase.database().ref(`/users/${uid}/info`).once('value')).val();
-                const info = {
-                    "tours": [
-                        {
-                            "id": "0",
-                            "name": "Reserved tour",
-                            "tourType": "RELAXATION",
-                            "transportType": "BUS",
-                            "country": "Spain",
-                            "price": "$500",
-                            "isLastMinuteTour": "true"
-                        }
-                    ]}
-                commit('setReservedToursByClient', info.tours);
-            } catch (e) {}
+                console.log(dispatch, commit);
+                let token = this.userToken;
+                console.log(token);
+                let decoded = jwt_decode(token);
+                let resultData = {
+                    role: decoded.authorities,
+                    userId: decoded.user_id
+                };
+                console.log(resultData);
+                let response = await fetch(`http://localhost:8083/get-my-reservations?id=${resultData.userId}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                let respJson = await response.json();
+                console.log(respJson);
+                commit('setReservedToursByClient', respJson.reservedTours);
+            } catch (e) {
+                alert("Sorry, smth go wrong :(");
+                throw e;
+            }
         },
     },
     getters: {

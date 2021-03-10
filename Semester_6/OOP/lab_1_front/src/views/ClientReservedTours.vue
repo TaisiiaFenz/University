@@ -4,15 +4,18 @@
             :key="tour"
         >
             <div class="tour-info">
-                <p class="tour-info__name">{{tour.name}}</p>
-                <p>{{tour.tourType}}</p>
-                <p>{{tour.transportType}}</p>
+                <p class="tour-info__name">{{tour.tour.name}}</p>
+                <p>{{tour.tour.tourType}}</p>
+                <p>{{tour.tour.transportType}}</p>
             </div>
             <div class="tour-country">
-                <p>{{tour.country}}</p>
+                <p>{{tour.tour.country}}</p>
             </div>
             <div class="tour-price">
-                <p>{{tour.price}}</p>
+                <p>{{tour.tour.price}}</p>
+            </div>
+            <div class="tour-status">
+                <p>{{tour.status}}</p>
             </div>
         </li>
     </ul>
@@ -22,8 +25,7 @@
     export default {
         name: 'ClientReservedTours',
         async mounted() {
-            let clientId = 0;
-            await this.$store.dispatch('fetchReservedToursByClient', clientId);
+            await this.$store.dispatch('fetchReservedToursByClient');
         },
         computed: {
             reservedToursByClient() {
