@@ -37,17 +37,21 @@ export default {
         },
         async fetchDiscountOptions({dispatch, commit}) {
             console.log(dispatch, commit);
+            let token = this.userToken;
             try {
-                //TODO: как нить получить список дисконтов
-                // const uid = await dispatch('getUid');
-                // //как нить получить общий список туров
-                // const info = await (firebase.database().ref(`/users/${uid}/info`).once('value')).val();
-                const info = {
-                    "discount": [
-                        "OftenUser", "Test"
-                    ]
-                };
-                commit('setDiscountOptions', info.discount);
+                let resp = await fetch('http://localhost:8083/get-all-discounts', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                let respJson = await resp.json();
+                console.log(respJson);
+                let discounts = [];
+                respJson.forEach((item) => {
+                    discounts.push(item.discountType);
+                });
+                commit('setDiscountOptions', discounts);
             } catch (e) {
                 alert("Sorry, smth go wrong :(");
             }
