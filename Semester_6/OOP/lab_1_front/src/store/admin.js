@@ -58,40 +58,47 @@ export default {
         },
         async fetchReservedTours({dispatch, commit}) {
             console.log(dispatch, commit);
+            let token = this.userToken;
+            let resp = await fetch('http://localhost:8083/get-all-reservations', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            let respJson = await resp.json();
+            console.log(respJson);
             try {
-                //TODO: как нить получить список зарезервированных туров
-                // const uid = await dispatch('getUid');
-                // //как нить получить общий список туров
-                // const info = await (firebase.database().ref(`/users/${uid}/info`).once('value')).val();
-                const info = {
-                    "tours": [
-                        {
-                            "id": "0",
-                            "name": "Reserved tour",
-                            "tourType": "RELAXATION",
-                            "transportType": "BUS",
-                            "country": "Spain",
-                            "price": "$500",
-                            "isLastMinuteTour": "true"
-                        }
-                    ]}
-                commit('setReservedTours', info.tours);
+                commit('setReservedTours', respJson.reservedTours);
             } catch (e) {
                 alert("Sorry, smth go wrong :(");
             }
         },
         async approveTour({dispatch, commit}, formData) {
             console.log(dispatch, commit, formData);
+            let token = this.userToken;
             try {
-                let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+                let response = await fetch('http://localhost:8083/accept-reservation', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(formData)
+                });
                 console.log(response);
                 //TODO отправить запрос на бек со скидоном и айди тура
             } catch (e) {alert("Sorry, smth go wrong :(");}
         },
         async notApproveTour({dispatch, commit}, formData) {
             console.log(dispatch, commit, formData);
+            let token = this.userToken;
             try {
-                let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+                let response = await fetch('http://localhost:8083/cancel-reservation', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(formData)
+                });
                 console.log(response);
                 //TODO отправить запрос на бек с айди тура
             } catch (e) {alert("Sorry, smth go wrong :(");}

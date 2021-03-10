@@ -4,15 +4,15 @@
             :key="tour"
         >
             <div class="tour-info">
-                <p class="tour-info__name">{{tour.name}}</p>
-                <p>{{tour.tourType}}</p>
-                <p>{{tour.transportType}}</p>
+                <p class="tour-info__name">{{tour.tour.name}}</p>
+                <p>{{tour.tour.tourType}}</p>
+                <p>{{tour.tour.transportType}}</p>
             </div>
             <div class="tour-country">
-                <p>{{tour.country}}</p>
+                <p>{{tour.tour.country}}</p>
             </div>
             <div class="tour-price">
-                <p>{{tour.price}}</p>
+                <p>{{tour.tour.price}}</p>
             </div>
             <p>
                 <select class="tour-discount tour-block"
@@ -26,8 +26,8 @@
                 </select>
             </p>
             <div class="tour-buttons tour-block">
-                <button class="tour-button" v-on:click="approveTour()" :id="tour.id">Approve</button>
-                <button class="tour-button" v-on:click="notApproveTour()" :id="tour.id">Not approve</button>
+                <button class="tour-button" v-on:click="approveTour()" :id="tour.tour.id">Approve</button>
+                <button class="tour-button" v-on:click="notApproveTour()" :id="tour.tour.id">Not approve</button>
             </div>
         </li>
     </ul>
@@ -57,15 +57,13 @@
         },
         methods: {
             async approveTour() {
-                console.log(event.target.id);
                 let discountIndex = event.target.parentNode.previousElementSibling.firstElementChild.selectedIndex;
+                console.log(event.target.id);
+                console.log(discountIndex);
                 const formData = {
                     "reservationId": event.target.id,
                     "discountId": discountIndex
                 };
-
-                //try {
-                    //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('approveTour', formData);
                 //} catch (e) {}
             },
@@ -73,8 +71,6 @@
                 const formData = {
                     "reservationId": event.target.id
                 };
-                //try {
-                    //тут чтото вернется и мы сможем проверить на какую страницу его отправить
                     await this.$store.dispatch('notApproveTour', formData);
                 //} catch (e) {}
             }
