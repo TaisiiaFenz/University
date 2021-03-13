@@ -27,7 +27,6 @@ export default {
             } else {
                 let token = respJson.token;
                 commit('setUserToken', token);
-                //console.log(state.userToken);
                 let decoded = jwt_decode(token);
                 let resultData = {
                     role: decoded.authorities,

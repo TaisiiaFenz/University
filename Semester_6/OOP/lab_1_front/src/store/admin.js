@@ -20,7 +20,6 @@ export default {
         async addClient({dispatch, commit}, formData) {
             console.log(dispatch, commit);
             let token = this.userToken;
-            console.log(token);
              try {
                 let response = await fetch('http://localhost:8083/add-client', {
                     method: 'POST',
@@ -35,6 +34,7 @@ export default {
                 throw e
             }
         },
+
         async fetchDiscountOptions({dispatch, commit}) {
             console.log(dispatch, commit);
             let token = this.userToken;
@@ -56,6 +56,7 @@ export default {
                 alert("Sorry, smth go wrong :(");
             }
         },
+
         async fetchReservedTours({dispatch, commit}) {
             console.log(dispatch, commit);
             let token = this.userToken;
@@ -73,6 +74,7 @@ export default {
                 alert("Sorry, smth go wrong :(");
             }
         },
+
         async approveTour({dispatch, commit}, formData) {
             console.log(dispatch, commit, formData);
             let token = this.userToken;
@@ -85,7 +87,6 @@ export default {
                     body: JSON.stringify(formData)
                 });
                 console.log(response);
-                //TODO отправить запрос на бек со скидоном и айди тура
             } catch (e) {alert("Sorry, smth go wrong :(");}
         },
         async notApproveTour({dispatch, commit}, formData) {
@@ -100,7 +101,6 @@ export default {
                     body: JSON.stringify(formData)
                 });
                 console.log(response);
-                //TODO отправить запрос на бек с айди тура
             } catch (e) {alert("Sorry, smth go wrong :(");}
         }
     },

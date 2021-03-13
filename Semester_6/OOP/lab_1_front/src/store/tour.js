@@ -5,9 +5,6 @@ export default {
     mutations: {
         setTours(state, tours) {
             state.tours = tours;
-        },
-        clearTours(state) {
-            state.tours = {};
         }
     },
     actions: {
@@ -22,16 +19,16 @@ export default {
                     }
                 });
                 let respJson = await resp.json();
-                console.log(respJson);
                 commit('setTours', respJson.tours);
             } catch (e) {
                 alert("Sorry, smth go wrong :(");
                 throw e;
             }
         },
+
         async updateTour({dispatch, commit}, checkBoxId) {
             try {
-                console.log(dispatch, commit, checkBoxId);
+                console.log(dispatch, commit);
                 let token = this.userToken;
                 let response = await fetch(`http://localhost:8083/update-hot-tour?id=${checkBoxId}`, {
                     method: 'POST',
@@ -44,7 +41,7 @@ export default {
                 alert("Sorry, smth go wrong :(");
                 throw e
             }
-        },
+        }
     },
     getters: {
         tours: s => s.tours

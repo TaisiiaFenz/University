@@ -74,21 +74,20 @@
             async submitHandler() {
                 if (this.$v.$invalid) {
                     this.$v.$touch();
-                    return
+                    return;
                 }
                 const formData = {
                     login: this.email,
                     password: this.password
                 }
 
-                    let resultData = await this.$store.dispatch('login', formData);
-                console.log(resultData);
+                let resultData = await this.$store.dispatch('login', formData);
+
                 if (!resultData) {
                     alert("Try one more time");
                 } else if (resultData.role == 'AGENT') {
                     this.$router.push('/add-client');
                 } else if (resultData.role == 'CLIENT') {
-                    //как то передать айдишку юзера
                     this.$router.push('/client-tours');
                 }
             }

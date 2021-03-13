@@ -13,7 +13,7 @@
                                 <p>{{tour.country}}</p>
                             </div>
                             <div class="tour-price">
-                                <p>{{tour.price}}</p>
+                                <p>{{tour.price}}$</p>
                             </div>
                             <div class="tour-checkbox" v-on:click="updateTour()">
                                 <p>

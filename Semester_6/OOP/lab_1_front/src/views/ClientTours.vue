@@ -12,9 +12,9 @@
                 <p>{{tour.country}}</p>
             </div>
             <div class="tour-price">
-                <p>{{tour.price}}</p>
+                <p>{{tour.price}}$</p>
             </div>
-            <p>
+            <p class="tour-duration">
                 <input
                         type="number"
                         min="3" max="10"
@@ -47,27 +47,25 @@
         methods: {
             async reserveTour() {
                 let startData = event.target.parentNode.previousElementSibling.firstElementChild.value;
-                //let duration = event.target.parentNode.previousElementSibling.previousElementSibling.firstElementChild.value;
-                // console.log(this.userToken);
-                // let decoded = jwt_decode(this.userToken);
-                // let resultData = {
-                //     role: decoded.authorities,
-                //     userId: decoded.user_id
-                // };
-                // console.log(resultData);
+                let duration = event.target.parentNode.previousElementSibling.previousElementSibling.firstElementChild.value;
+                let date = new Date(startData);
+                date.setDate(date.getDate() + +duration);
+                let endMonth = date.getMonth() + 1;
+                let endDay = date.getDate();
+                endMonth = (`${endMonth}`.length == 1) ? `0${endMonth}` : endMonth;
+                endDay = (`${endDay}`.length == 1) ? `0${endDay}` : endDay;
+                let endData = date.getFullYear() + "-" + endMonth + "-" + endDay;
+
                 const formData = {
-                    //"client_id": resultData.userId,
                     "tourId": event.target.id,
                     "startDate": startData,
-                    "endDate": "2021-04-20"
-                    //"duration": duration
+                    "endDate": endData
                 };
-                console.log(formData);
 
                 try {
                     await this.$store.dispatch('reserveTourByClient', formData);
                 } catch (e) {
-                    alert("sorry");
+                    alert("Sorry, sth go wrong:(");
                 }
             }
         }
@@ -81,5 +79,8 @@
     .tour-info {
         width: 250px;
         height: 120px;
+    }
+    .tour-duration {
+        width: 90px;
     }
 </style>

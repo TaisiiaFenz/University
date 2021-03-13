@@ -149,8 +149,8 @@
 }
 
 .tour-discount {
-    width: 200px;
-    font-size: 15px;
+    width: 150px;
+    font-size: 12px;
 }
 
 .tour-buttons {
@@ -167,4 +167,12 @@
     width: 150px;
     height: 35px;
     margin-bottom: 10px;
+}
+
+.tour-status {
+    padding: 0;
+    padding-left: 5px;
+    margin: 0;
+    font-size: 13px;
+    color: black;
 }

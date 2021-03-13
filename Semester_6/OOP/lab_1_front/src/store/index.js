@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import auth from "./auth";
 import admin from "./admin";
 import client from "./client";
-import info from "./info";
+import tour from "./tour";
 
 Vue.use(Vuex);
 
@@ -15,6 +15,6 @@ export default new Vuex.Store({
     auth,
     admin,
     client,
-    info
+    tour
   }
 });
