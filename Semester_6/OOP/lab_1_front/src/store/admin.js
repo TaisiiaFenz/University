@@ -46,7 +46,6 @@ export default {
                     }
                 });
                 let respJson = await resp.json();
-                console.log(respJson);
                 let discounts = [];
                 respJson.forEach((item) => {
                     discounts.push(item.discountType);
@@ -89,6 +88,7 @@ export default {
                 console.log(response);
             } catch (e) {alert("Sorry, smth go wrong :(");}
         },
+
         async notApproveTour({dispatch, commit}, formData) {
             console.log(dispatch, commit, formData);
             let token = this.userToken;

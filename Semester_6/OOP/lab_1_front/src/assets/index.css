@@ -148,6 +148,11 @@
     display: block;
 }
 
+.Logout {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .tour-discount {
     width: 150px;
     font-size: 12px;

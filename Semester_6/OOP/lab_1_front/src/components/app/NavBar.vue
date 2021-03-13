@@ -5,7 +5,6 @@
                     <a href="#" @click.prevent="$emit('click')">
                         <i class="material-icons black-text">dehaze</i>
                     </a>
-                    <span class="black-text">12.12.12</span>
                 </div>
 
                 <div class="navbar-right">
@@ -15,24 +14,12 @@
                                     class="dropdown-trigger black-text"
                                     href="#"
                                     data-target="dropdown"
+                                    @click.prevent="logout"
                             >
-                                USER NAME
+                                <span class="Logout">Log out</span>
                                 <i class="material-icons right">arrow_drop_down</i>
                             </a>
 
-                            <ul id='dropdown' class='dropdown-content'>
-                                <li>
-                                    <a href="#" class="black-text">
-                                        <i class="material-icons">account_circle</i>Profile
-                                    </a>
-                                </li>
-                                <li class="divider" tabindex="-1"></li>
-                                <li>
-                                    <a href="#" class="black-text">
-                                        <i class="material-icons">assignment_return</i>Sign out
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +28,13 @@
 </template>
 
 <script>
+
     export default {
-        name: 'NavBar'
+        name: 'NavBar',
+        methods: {
+            logout() {
+                this.$router.push('/');
+            }
+        }
     };
 </script>

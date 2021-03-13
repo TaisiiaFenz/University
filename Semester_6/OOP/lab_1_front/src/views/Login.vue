@@ -86,6 +86,7 @@
                 if (!resultData) {
                     alert("Try one more time");
                 } else if (resultData.role == 'AGENT') {
+                    console.log(this.$store.getters.userToken);
                     this.$router.push('/add-client');
                 } else if (resultData.role == 'CLIENT') {
                     this.$router.push('/client-tours');
