@@ -26,8 +26,8 @@
                 </select>
             </p>
             <div class="tour-buttons tour-block">
-                <button class="tour-button" v-on:click="approveTour()" :id="tour.tour.id">Approve</button>
-                <button class="tour-button" v-on:click="notApproveTour()" :id="tour.tour.id">Not approve</button>
+                <button class="tour-button" v-on:click="approveTour()" :id="tour.reservationId">Approve</button>
+                <button class="tour-button" v-on:click="notApproveTour()" :id="tour.reservationId">Not approve</button>
             </div>
         </li>
     </ul>
@@ -58,19 +58,18 @@
         methods: {
             async approveTour() {
                 let discountIndex = event.target.parentNode.previousElementSibling.firstElementChild.selectedIndex;
-                console.log(event.target.id);
-                console.log(discountIndex);
                 const formData = {
                     "reservationId": event.target.id,
-                    "discountId": discountIndex
+                    "discountId": discountIndex + 1
                 };
-                    await this.$store.dispatch('approveTour', formData);
+                await this.$store.dispatch('approveTour', formData);
                 //} catch (e) {}
             },
             async notApproveTour() {
                 const formData = {
                     "reservationId": event.target.id
                 };
+                console.log(formData);
                     await this.$store.dispatch('notApproveTour', formData);
                 //} catch (e) {}
             }
