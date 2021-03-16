@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="7" author="Taisiia Fenz">
+<createTable tableName="billing">
+    <column name="id" type="integer" autoIncrement="true"/>
+    <column name="reservation_id" type="integer">
+        <constraints foreignKeyName="reservation_fk_b" references="reservation(id)" nullable="false"/>
+    </column>
+    <column name="discount_id" type="integer">
+        <constraints foreignKeyName="discount_fk_b" references="discount(id)"/>
+    </column>
+    <column name="sum" type="decimal" remarks="The sum to pay">
+        <constraints nullable="false"/>
+    </column>
+</createTable>
+    </changeSet>
+
+</databaseChangeLog>
