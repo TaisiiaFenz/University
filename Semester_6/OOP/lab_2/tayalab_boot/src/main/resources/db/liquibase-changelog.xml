@@ -1,0 +1,16 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <include file="classpath:db/changelog/V1-create-tables.xml"/>
+    <include file="classpath:db/changelog/V2-change-id-type.xml"/>
+    <include file="classpath:db/changelog/V3-add-user-id-to-client.xml"/>
+    <include file="classpath:db/changelog/V4-add-unique-constraint-to-username.xml"/>
+    <include file="classpath:db/changelog/V5-add-reservation-date.xml"/>
+    <include file="classpath:db/changelog/V6-drop-discount-from-reservation.xml"/>
+    <include file="classpath:db/changelog/V7-create-billing-table.xml"/>
+    <include file="classpath:db/changelog/V8-add-status-to-reservation.xml"/>
+    <include file="classpath:db/changelog/V9-add-reservation-date-to-reservation-table.xml"/>
+
+</databaseChangeLog>
