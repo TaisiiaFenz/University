@@ -31,6 +31,7 @@ public class CountryDaoImpl implements DAO<Country> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("list:" + countryList.get(0).getCountryName());
         return countryList;
     }
 

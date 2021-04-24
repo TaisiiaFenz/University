@@ -5,6 +5,13 @@ public class Country {
     private String countryName;
     private String capital;
 
+    public Country() {}
+
+    public Country(String countryName, String capital) {
+        this.countryName = countryName;
+        this.capital = capital;
+    }
+
     public int getCountryId() {
         return countryId;
     }
