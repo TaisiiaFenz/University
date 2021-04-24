@@ -6,9 +6,8 @@
 
 <html>
     <body style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-          width: 500px;
-          display: flex;
-          margin: 0 auto;
+          width: 600px;
+          margin: 20px auto;
           padding: 30px"
     >
     <h2 style="text-align: center">
@@ -22,17 +21,27 @@
         <h2>Add Country</h2>
         <form method="post" action="${pageContext.request.contextPath}/country">
             <div class="form-group">
-                <label for="country_name" class="control-label">Name: </label>
+                <label for="country_name" class="control-label"
+                       style="display: block;"
+                >Country name: </label>
                 <input id="country_name" class="form-control" type="text"
                        name="country_name"/>
             </div>
             <div class="form-group">
-                <label for="capital" class="control-label">Pseudonym: </label>
+                <label for="capital" class="control-label"
+                       style="display: block;"
+                >Capital: </label>
                 <input id="capital" class="form-control" type="text"
                        name="capital"/>
             </div>
             <div class="form-group">
-                <button id="button" type="submit" class="btn btn-success">Submit</button>
+                <button id="button" type="submit" class="btn btn-success"
+                        style="margin-top: 20px;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 10px;
+                        background-color: lavender"
+                >Submit</button>
             </div>
         </form>
     </div>
@@ -40,22 +49,34 @@
         <h2>Update Country</h2>
         <form method="post" action="${pageContext.request.contextPath}/update">
             <div class="form-group">
-                <label for="country_id" class="control-label">Id: </label>
+                <label for="country_id" class="control-label"
+                       style="display: block;"
+                >Country id: </label>
                 <input id="country_id" class="form-control" type="number"
                        name="country_id"/>
             </div>
             <div class="form-group">
-                <label for="countryname" class="control-label">Country name: </label>
+                <label for="countryname" class="control-label"
+                       style="display: block;"
+                >Country name: </label>
                 <input id="countryname" class="form-control" type="text"
                        name="country_name"/>
             </div>
             <div class="form-group">
-                <label for="updatecapital" class="control-label">Capital: </label>
+                <label for="updatecapital" class="control-label"
+                       style="display: block;"
+                >Capital: </label>
                 <input id="updatecapital" class="form-control" type="text"
                        name="capital"/>
             </div>
             <div class="form-group">
-                <button id="updateButton" type="submit" class="btn btn-success">Submit</button>
+                <button id="updateButton" type="submit" class="btn btn-success"
+                        style="margin-top: 20px;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 10px;
+                        background-color: lavender"
+                >Submit</button>
             </div>
         </form>
     </div>
@@ -66,22 +87,34 @@
         <h2>Add City</h2>
         <form method="post" action="${pageContext.request.contextPath}/city">
             <div class="form-group">
-                <label for="city_name" class="control-label">City name: </label>
+                <label for="city_name" class="control-label"
+                       style="display: block;"
+                >City name: </label>
                 <input id="city_name" class="form-control" type="text"
                        name="city_name"/>
             </div>
             <div class="form-group">
-                <label for="population" class="control-label">Population: </label>
+                <label for="population" class="control-label"
+                       style="display: block;"
+                >Population: </label>
                 <input id="population" class="form-control" type="number"
                        name="population_in_thousands"/>
             </div>
             <div class="form-group">
-                <label for="countryId" class="control-label">Country id: </label>
+                <label for="countryId" class="control-label"
+                       style="display: block;"
+                >Country id: </label>
                 <input id="countryId" class="form-control" type="number"
                        name="country_id"/>
             </div>
             <div class="form-group">
-                <button id="buttonCity" type="submit" class="btn btn-success">Submit</button>
+                <button id="buttonCity" type="submit" class="btn btn-success"
+                        style="margin-top: 20px;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 10px;
+                        background-color: lavender"
+                >Submit</button>
             </div>
         </form>
     </div>
