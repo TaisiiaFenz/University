@@ -20,7 +20,7 @@ public class CountryServlet extends HttpServlet {
         System.out.println("Part 2");
         req.setAttribute("countries", countryDao.findAll());
         System.out.println(req);
-        req.setAttribute("countryName", "Countries: ");
+        req.setAttribute("countryTitle", "Countries: ");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 

@@ -6,6 +6,14 @@ public class City {
     private int populationInThousands;
     private int countryId;
 
+    public City() {}
+
+    public City(String cityName, int populationInThousands, int countryId) {
+        this.cityName = cityName;
+        this.populationInThousands = populationInThousands;
+        this.countryId = countryId;
+    }
+
     public int getCityId() {
         return cityId;
     }

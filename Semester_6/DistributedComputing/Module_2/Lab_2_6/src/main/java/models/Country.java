@@ -12,6 +12,12 @@ public class Country {
         this.capital = capital;
     }
 
+    public Country(int countryId, String countryName, String capital) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.capital = capital;
+    }
+
     public int getCountryId() {
         return countryId;
     }
