@@ -52,7 +52,7 @@ public class CountryDaoImpl implements DAO<Country> {
     public boolean update(Country country) {
         try {
             PreparedStatement preparedStatement
-                    = connection.prepareStatement("UPDATE country SET country_name= ?, capital= ? WHERE id=?");
+                    = connection.prepareStatement("UPDATE country SET country_name= ?, capital= ? WHERE country_id=?");
             preparedStatement.setString(1, country.getCountryName());
             preparedStatement.setString(2, country.getCapital());
             preparedStatement.setInt(3, country.getCountryId());
@@ -73,9 +73,11 @@ public class CountryDaoImpl implements DAO<Country> {
     @Override
     public boolean deleteById(int id) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM country WHERE id=?");
+            System.out.println("start delete");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM country WHERE country_id=?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            System.out.println("finish delete");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

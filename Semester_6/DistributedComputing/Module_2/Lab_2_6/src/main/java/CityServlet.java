@@ -15,7 +15,9 @@ public class CityServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Start adding city");
         req.setAttribute("cities", cityDao.findAll());
+        System.out.println(req);
         req.setAttribute("cityTitle", "Cities:");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
 

@@ -12,16 +12,18 @@ import java.util.Optional;
 
 @WebServlet(urlPatterns = "/delete")
 public class DeleteServlet extends HttpServlet {
-    CityDaoImpl bookDao = new CityDaoImpl(Connector.getConnection());
+    CityDaoImpl cityDao = new CityDaoImpl(Connector.getConnection());
     CountryDaoImpl countryDao = new CountryDaoImpl(Connector.getConnection());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String city = Optional.ofNullable(req.getParameter("cityId")).orElse("empty");
+        System.out.println("Try delete");
+        String city = Optional.ofNullable(req.getParameter("id")).orElse("empty");
         String country = Optional.ofNullable(req.getParameter("countryId")).orElse("empty");
+        System.out.println(city + " " + country);
         if (!city.equals("empty")){
-            bookDao.deleteById(Integer.parseInt(city));
+            cityDao.deleteById(Integer.parseInt(city));
         } else {
             countryDao.deleteById(Integer.parseInt(country));
         }

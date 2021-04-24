@@ -39,11 +39,10 @@ public class CityDaoImpl implements DAO<City> {
     public City save(City item) {
         try {
             PreparedStatement preparedStatement
-                    = connection.prepareStatement("INSERT INTO city(city_id,city_name,population_in_thousands,country_id) VALUES(?,?,?,?)");
-            preparedStatement.setInt(1, item.getCityId());
-            preparedStatement.setString(2, item.getCityName());
-            preparedStatement.setInt(3, item.getPopulationInThousands());
-            preparedStatement.setInt(4, item.getCountryId());
+                    = connection.prepareStatement("INSERT INTO city(city_name,population_in_thousands,country_id) VALUES(?,?,?)");
+            preparedStatement.setString(1, item.getCityName());
+            preparedStatement.setInt(2, item.getPopulationInThousands());
+            preparedStatement.setInt(3, item.getCountryId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class CityDaoImpl implements DAO<City> {
     @Override
     public boolean deleteById(int id) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM city WHERE id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM city WHERE city_id=?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             return true;
