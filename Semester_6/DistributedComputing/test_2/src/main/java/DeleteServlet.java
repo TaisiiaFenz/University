@@ -25,6 +25,5 @@ public class DeleteServlet extends HttpServlet {
         } else {
             fileDao.deleteById(Integer.parseInt(file));
         }
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

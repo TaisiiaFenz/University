@@ -17,7 +17,6 @@ public class FileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("cities", fileDao.findAll());
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
 
     }
 
@@ -27,7 +26,6 @@ public class FileServlet extends HttpServlet {
         String catalog = req.getParameter("catalog");
         int size = Integer.parseInt(req.getParameter("id"));
         fileDao.save(new File(name, catalog, size));
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
 
     }
 }

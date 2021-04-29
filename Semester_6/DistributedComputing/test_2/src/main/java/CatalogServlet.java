@@ -18,7 +18,6 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setAttribute("catalog", countryDao.findAll());
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     @Override
@@ -26,6 +25,5 @@ public class CatalogServlet extends HttpServlet {
         String name = req.getParameter("name");
         String catalog = req.getParameter("catalog");
         countryDao.save(new Catalog(name, catalog));
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
