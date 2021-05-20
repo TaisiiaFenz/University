@@ -17,30 +17,82 @@ public class AdditionalSymbols {
                  res = '(';
                  break;
             case ')':
-                res = '(';
+                res = ')';
                 break;
             case '{':
-                res = '(';
+                res = '{';
                 break;
             case '}':
-                res = '(';
+                res = '}';
                 break;
             case '[':
-                res = '(';
+                res = '[';
                 break;
             case ']':
-                res = '(';
+                res = ']';
                 break;
             case ';':
-                res = '(';
+                res = ';';
                 break;
             case ',':
-                res = '(';
+                res = ',';
                 break;
             case '@':
-                res = '(';
+                res = '@';
                 break;
         }
         return res;
+    }
+
+    public static char operator(char c) {
+        char res = Character.MIN_VALUE;
+        switch (c) {
+            case '=':
+                res = '=';
+                break;
+            case '>':
+                res = '>';
+                break;
+            case '<':
+                res = '<';
+                break;
+            case '!':
+                res = '!';
+                break;
+            case '~':
+                res = '~';
+                break;
+            case ':':
+                res = ':';
+                break;
+            case '?':
+                res = '?';
+                break;
+            case '&':
+                res = '&';
+                break;
+            case '|':
+                res = '|';
+                break;
+            case '+':
+                res = '+';
+                break;
+            case '-':
+                res = '-';
+                break;
+            case '*':
+                res = '*';
+                break;
+            case '/':
+                res = '/';
+                break;
+            case '^':
+                res = '^';
+                break;
+            case '%':
+                res = '%';
+                break;
+        }
+        return  res;
     }
 }

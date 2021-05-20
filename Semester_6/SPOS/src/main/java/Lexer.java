@@ -48,6 +48,12 @@ public class Lexer {
         buffer = new StringBuilder();
     }
 
+    private void addToken(String c, Type type) {
+        System.out.println("Add token " + c + " " + type);
+        tokens.add(new Token(c, type));
+        buffer = new StringBuilder();
+    }
+
     private void addToBuffer(char c, int state) {
         System.out.println("Add buffer " + c);
         buffer.append(c);
@@ -63,6 +69,9 @@ public class Lexer {
             switch (state) {
                 case 0:
                     startState_0(c);
+                    break;
+                case 1:
+                    slash_1(c);
                     break;
             }
         }
@@ -150,5 +159,33 @@ public class Lexer {
             addToken(c, Type.SEPARATOR);
             state = 0;
         }
+    }
+
+    public void slash_1(char c) {
+        switch (c) {
+            case '/': {
+                addToBuffer(c, 15);
+                return;
+            }
+            case '*': {
+                addToBuffer(c, 16);
+                return;
+            }
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+        }
+         if (AdditionalSymbols.operator(c) == c) {
+                addToBuffer(c, -1);
+         } else {
+             addToken(buffer.toString(), Type.OPERATOR);
+             letter--;
+             state = 0;
+         }
     }
 }
