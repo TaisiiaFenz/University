@@ -23,7 +23,7 @@ public class LexerWrapper {
     public void createTokens() {
         Lexer lexer = new Lexer(fileName);
         lexer.initialize();
-        //tokens = lexer.generateTokens();
+        lexer.generateTokens();
     }
 }
 
