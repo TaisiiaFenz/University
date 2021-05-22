@@ -74,6 +74,9 @@ public class Lexer {
         while (letter < inputText.length) {
             char c = inputText[letter];
             switch (state) {
+                case -1:
+                    incorrectState_minus1(c);
+                    break;
                 case 0:
                     startState_0(c);
                     break;
@@ -97,6 +100,30 @@ public class Lexer {
                     break;
             }
             ++letter;
+        }
+    }
+
+    public void incorrectState_minus1(char c) {
+        char lastElement = buffer.toString().substring(buffer.length() - 1).charAt(0);
+        if (AdditionalSymbols.whitespace(c) == c
+                || AdditionalSymbols.separator(c) == c
+                || c == '.'
+                || AdditionalSymbols.operator(c) == c
+                && AdditionalSymbols.operator(lastElement) != c) {
+            letter--;
+            addToken(buffer.toString(), Type.ERROR);
+            state = 0;
+        } else if (buffer.length() > 0 && lastElement == '/' && (c == '/' || c == '*')) {
+            buffer.deleteCharAt(buffer.length() - 1);
+            addToken(buffer.toString(), Type.ERROR);
+            buffer.append('/');
+            if (c == '/') {
+                addToBuffer(c, 15);
+            } else {
+                addToBuffer(c, 16);
+            }
+        } else {
+            addToBuffer(c, -1);
         }
     }
 
