@@ -152,6 +152,15 @@ public class Lexer {
                 case 24:
                     lessLess_24(c);
                     break;
+                case 25:
+                    dotDot_25(c);
+                    break;
+                case 26:
+                    ampersandOrPipe_26(c);
+                    break;
+                case 27:
+                    dotDotDot_27(c);
+                    break;
             }
             ++letter;
         }
@@ -183,7 +192,7 @@ public class Lexer {
 
     public void startState_0(char c) {
 
-        switch(c) {
+        switch (c) {
             case '/': {
                 addToBuffer(c, 1);
                 break;
@@ -196,11 +205,11 @@ public class Lexer {
                 addToBuffer(c, 5);
                 break;
             }
-            case'\"': {
+            case '\"': {
                 addToBuffer(c, 6);
                 break;
             }
-            case'.': {
+            case '.': {
                 addToBuffer(c, 7);
                 break;
             }
@@ -232,7 +241,7 @@ public class Lexer {
                 addToBuffer(c, 13);
                 break;
             }
-            case'-': {
+            case '-': {
                 addToBuffer(c, 14);
                 break;
             }
@@ -284,13 +293,13 @@ public class Lexer {
                 return;
             }
         }
-         if (AdditionalSymbols.operator(c) == c) {
-                addToBuffer(c, -1);
-         } else {
-             addToken(buffer.toString(), Type.OPERATOR);
-             letter--;
-             state = 0;
-         }
+        if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            addToken(buffer.toString(), Type.OPERATOR);
+            letter--;
+            state = 0;
+        }
     }
 
     public void identifier_2(char c) {
@@ -309,8 +318,8 @@ public class Lexer {
             }
         }
         if ((AdditionalSymbols.whitespace(c) == c)
-                ||(AdditionalSymbols.operator(c) == c)
-                ||(AdditionalSymbols.separator(c) == c)) {
+                || (AdditionalSymbols.operator(c) == c)
+                || (AdditionalSymbols.separator(c) == c)) {
             if (isNullLiteral(buffer.toString())) {
                 addToken(buffer.toString(), Type.NULL_LITERAL);
             } else if (isBooleanLiteral(buffer.toString())) {
@@ -368,17 +377,17 @@ public class Lexer {
     }
 
     public void nonzeroDigit_4(char c) {
-       if (c == '_') {
-           addToBuffer(c, 34);
-       } else if (AdditionalSymbols.digits(c) == c) {
-           addToBuffer(c, 4);
-       } else if (Character.isJavaIdentifierPart(c)) {
-           addToBuffer(c, -1);
-       } else if (c == '.') {
-           addToBuffer(c, 23);
-       } else if (c == 'l' || c == 'L') {
-           addToBuffer(c, 41);
-       } else {
+        if (c == '_') {
+            addToBuffer(c, 34);
+        } else if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 4);
+        } else if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, -1);
+        } else if (c == '.') {
+            addToBuffer(c, 23);
+        } else if (c == 'l' || c == 'L') {
+            addToBuffer(c, 41);
+        } else {
             addToken(buffer.toString(), Type.INT_LITERAL);
             letter--;
             state = 0;
@@ -388,7 +397,7 @@ public class Lexer {
     public void charLiteral_5(char c) {
         if (c == '\\') {
             addToBuffer(c, 31);
-        } else if (AdditionalSymbols.whitespace(c) == c && c != ' ' && c != '\t')  {
+        } else if (AdditionalSymbols.whitespace(c) == c && c != ' ' && c != '\t') {
             addToken(buffer.toString(), Type.ERROR);
             addToken(c, Type.WHITESPACE);
             state = 0;
@@ -625,7 +634,7 @@ public class Lexer {
     public void divideEqual_18(char c) {
         if (c == '/') {
             addToBuffer(c, 19);
-        } else if (c == ':')  {
+        } else if (c == ':') {
             addToBuffer(c, 21);
         } else if (AdditionalSymbols.operator(c) == c) {
             addToBuffer(c, -1);
@@ -670,7 +679,7 @@ public class Lexer {
                 return;
             }
         }
-        if (AdditionalSymbols.operator(c) == c){
+        if (AdditionalSymbols.operator(c) == c) {
             addToBuffer(c, -1);
         } else {
             letter--;
@@ -709,7 +718,8 @@ public class Lexer {
                 addToBuffer(c, 19);
                 return;
             }
-        } if (AdditionalSymbols.operator(c) == c) {
+        }
+        if (AdditionalSymbols.operator(c) == c) {
             addToBuffer(c, -1);
         } else {
             addToken(buffer.toString(), Type.OPERATOR);
@@ -758,6 +768,40 @@ public class Lexer {
         } else {
             addToken(buffer.toString(), Type.OPERATOR);
             letter--;
+            state = 0;
+        }
+    }
+
+    public void dotDot_25(char c) {
+        if (c == '.') {
+            addToBuffer(c, 28);
+        } else {
+            addToken(buffer.toString().charAt(0), Type.SEPARATOR);
+            addToken(buffer.toString().charAt(1), Type.SEPARATOR);
+            state = 0;
+        }
+    }
+
+    public void ampersandOrPipe_26(char c) {
+        if (c == ':') {
+            addToBuffer(c, 21);
+        } else if (c == '/') {
+            addToBuffer(c, 19);
+        } else if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.OPERATOR);
+            state = 0;
+        }
+    }
+
+    public void dotDotDot_27(char c) {
+        if (c == '.') {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.SEPARATOR);
             state = 0;
         }
     }
