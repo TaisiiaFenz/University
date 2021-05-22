@@ -68,7 +68,7 @@ public class Lexer {
         this.state = state;
     }
 
-    public void generateTokens() {
+    public List<Token> generateTokens() {
         letter = 0;
 
         while (letter < inputText.length) {
@@ -212,6 +212,7 @@ public class Lexer {
             }
             ++letter;
         }
+        return tokens;
     }
 
     public void incorrectState_minus1(char c) {

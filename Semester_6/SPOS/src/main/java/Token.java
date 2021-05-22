@@ -7,4 +7,11 @@ public class Token {
         this.tokenStr = tokenStr;
         this.type = type;
     }
+
+    public String toString() {
+        return "Token{" +
+                "type=" + type +
+                ", tokenString='" + tokenStr + '\'' +
+                '}';
+    }
 }

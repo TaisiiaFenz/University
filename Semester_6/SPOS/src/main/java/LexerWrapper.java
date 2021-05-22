@@ -9,7 +9,10 @@ public class LexerWrapper {
     }
 
     public void printTokens() {
-
+        int i = 0;
+        for (Token token : tokens) {
+            System.out.println((++i) + "   " + token.toString() + "\n");
+        }
     }
 
     public void highlightCode() {
@@ -23,7 +26,7 @@ public class LexerWrapper {
     public void createTokens() {
         Lexer lexer = new Lexer(fileName);
         lexer.initialize();
-        lexer.generateTokens();
+        tokens = lexer.generateTokens();
     }
 }
 
