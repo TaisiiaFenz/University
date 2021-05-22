@@ -122,6 +122,21 @@ public class Lexer {
                 case 14:
                     minus_14(c);
                     break;
+                case 15:
+                    singleLineComment_15(c);
+                    break;
+                case 16:
+                    multiLineComment_16(c);
+                    break;
+                case 17:
+                    starInMultiLineComment_17(c);
+                    break;
+                case 18:
+                    divideEqual_18(c);
+                    break;
+                case 19:
+                    maybeComment_19(c);
+                    break;
             }
             ++letter;
         }
@@ -562,6 +577,62 @@ public class Lexer {
             letter--;
             addToken(buffer.toString(), Type.OPERATOR);
             state = 0;
+        }
+    }
+
+    public void singleLineComment_15(char c) {
+        if (AdditionalSymbols.whitespace(c) == c && c != '\t' && c != ' ') {
+            addToken(buffer.toString(), Type.COMMENT);
+            addToken(c, Type.WHITESPACE);
+            state = 0;
+        } else {
+            addToBuffer(c, 15);
+        }
+    }
+
+    public void multiLineComment_16(char c) {
+        if (c == '*') {
+            addToBuffer(c, 17);
+        } else {
+            addToBuffer(c, 16);
+        }
+    }
+
+    public void starInMultiLineComment_17(char c) {
+        if (c == '/') {
+            addToBuffer(c, 0);
+            addToken(buffer.toString(), Type.COMMENT);
+        } else {
+            addToBuffer(c, 16);
+        }
+    }
+
+    public void divideEqual_18(char c) {
+        if (c == '/') {
+            addToBuffer(c, 19);
+        } else if (c == ':')  {
+            addToBuffer(c, 21);
+        } else if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.OPERATOR);
+            state = 0;
+        }
+    }
+
+    public void maybeComment_19(char c) {
+        if (c == '/' || c == '*') {
+            buffer.deleteCharAt(buffer.length() - 1);
+            addToken(buffer.toString(), Type.OPERATOR);
+            buffer.append('/');
+            if (c == '/') {
+                addToBuffer(c, 15);
+            } else {
+                addToBuffer(c, 16);
+            }
+        } else {
+            addToBuffer(c, -1);
         }
     }
 }
