@@ -86,6 +86,9 @@ public class Lexer {
                 case 3:
                     zeroFirst_3(c);
                     break;
+                case 4:
+                    nonzeroDigit_4(c);
+                    break;
             }
             ++letter;
         }
@@ -273,6 +276,24 @@ public class Lexer {
         } else {
             letter--;
             addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void nonzeroDigit_4(char c) {
+       if (c == '_') {
+           addToBuffer(c, 34);
+       } else if (AdditionalSymbols.digits(c) == c) {
+           addToBuffer(c, 4);
+       } else if (Character.isJavaIdentifierPart(c)) {
+           addToBuffer(c, -1);
+       } else if (c == '.') {
+           addToBuffer(c, 23);
+       } else if (c == 'l' || c == 'L') {
+           addToBuffer(c, 41);
+       } else {
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            letter--;
             state = 0;
         }
     }
