@@ -42,6 +42,14 @@ public class Lexer {
         System.out.println(inputText);
     }
 
+    private boolean isBooleanLiteral(String value) {
+        return ("true" == value || "false" == value) ? true : false;
+    }
+
+    private boolean isNullLiteral(String value) {
+        return ("null" == value) ? true : false;
+    }
+
     private void addToken(char c, Type type) {
         System.out.println("Add token " + c + " " + type);
         tokens.add(new Token(Character.toString(c), type));
@@ -55,13 +63,12 @@ public class Lexer {
     }
 
     private void addToBuffer(char c, int state) {
-        System.out.println("Add buffer " + c);
+        System.out.println("Add buffer " + c + " " + state);
         buffer.append(c);
         this.state = state;
     }
 
     public void generateTokens() {
-        //inputText += " ";
         letter = 0;
 
         while (letter < inputText.length) {
@@ -73,7 +80,11 @@ public class Lexer {
                 case 1:
                     slash_1(c);
                     break;
+                case 2:
+                    identifier_2(c);
+                    break;
             }
+            ++letter;
         }
     }
 
@@ -187,5 +198,40 @@ public class Lexer {
              letter--;
              state = 0;
          }
+    }
+
+    public void identifier_2(char c) {
+        if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, 26);
+            return;
+        }
+        switch (c) {
+            case '#': {
+                addToBuffer(c, -1);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 29);
+                return;
+            }
+        }
+        if ((AdditionalSymbols.whitespace(c) == c)
+                ||(AdditionalSymbols.operator(c) == c)
+                ||(AdditionalSymbols.separator(c) == c)) {
+            if (isNullLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.NULL_LITERAL);
+            } else if (isBooleanLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.BOOLEAN_LITERAL);
+            } else if (IsKeyword.parse(buffer.toString())) {
+                addToken(buffer.toString(), Type.KEYWORD);
+            } else {
+                addToken(buffer.toString(), Type.IDENTIFIER);
+            }
+            state = 0;
+            letter--;
+            return;
+        } else {
+            addToBuffer(c, -1);
+        }
     }
 }
