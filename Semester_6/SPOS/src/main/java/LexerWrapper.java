@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class LexerWrapper {
     String fileName;
@@ -49,13 +53,26 @@ public class LexerWrapper {
         }
 
         html.appendChild(body);
+        assert out != null;
         out.println(html.write());
         out.close();
     }
 
     public void sortTokens() {
+        Map<Type, List<Token>> mappedTokens = tokens.stream().collect(groupingBy(Token::getType));
 
+
+        mappedTokens.forEach((key, value) -> {
+            if (key != Type.WHITESPACE) {
+                System.out.println("key : " + key);
+
+                for (Token v : value) {
+                    System.out.println("\t" + v.tokenStr);
+                }
+            }
+        });
     }
+
 
     public void createTokens() {
         Lexer lexer = new Lexer(fileName);

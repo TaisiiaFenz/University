@@ -46,7 +46,6 @@ class JarvisMethod(private val points: MutableList<Point>) {
     }
 
     private fun findNext(point: Point): Int {
-        // Wow amazing!
 
         var next = points{0}
         var index = 0
@@ -60,8 +59,6 @@ class JarvisMethod(private val points: MutableList<Point>) {
     }
 
     private fun getSide(a: Point, b: Point, c: Point): Int {
-
-        // TODO: Nothing
 
         val rotation = getRotation(a, b, c)
 

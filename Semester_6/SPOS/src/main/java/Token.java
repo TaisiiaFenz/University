@@ -1,7 +1,7 @@
 public class Token {
 
-    String tokenStr;
-    Type type;
+    public String tokenStr;
+    public Type type;
 
     public Token(String tokenStr, Type type) {
         this.tokenStr = tokenStr;
@@ -13,5 +13,9 @@ public class Token {
                 "type=" + type +
                 ", tokenString='" + tokenStr + '\'' +
                 '}';
+    }
+
+    public Type getType() {
+        return type;
     }
 }

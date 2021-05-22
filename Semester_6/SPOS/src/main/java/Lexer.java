@@ -212,14 +212,6 @@ public class Lexer {
             }
             ++letter;
         }
-        if (state == 15) {
-            System.out.println("TEEEEEEEEEEEEEEEEEEEEEEEEEESSSSTTT");
-            addToken(buffer.toString(), Type.COMMENT);
-            state = 0;
-        } else if (state == 16 || state == 17 || state == 44) {
-            addToken(buffer.toString(), Type.ERROR);
-            state = 0;
-        }
         return tokens;
     }
 
@@ -662,7 +654,7 @@ public class Lexer {
     }
 
     public void singleLineComment_15(char c) {
-        if (AdditionalSymbols.whitespace(c) == c && c != '\t' && c != ' ') {
+        if (AdditionalSymbols.whitespace(c) == c && c != '\t') {
             addToken(buffer.toString(), Type.COMMENT);
             addToken(c, Type.WHITESPACE);
             state = 0;
