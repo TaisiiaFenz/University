@@ -95,4 +95,8 @@ public class AdditionalSymbols {
         }
         return  res;
     }
+
+    public static char octal(char c) {
+        return Pattern.matches("[0-7]", Character.toString(c)) ? c : Character.MIN_VALUE;
+    }
 }

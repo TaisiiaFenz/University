@@ -83,6 +83,9 @@ public class Lexer {
                 case 2:
                     identifier_2(c);
                     break;
+                case 3:
+                    zeroFirst_3(c);
+                    break;
             }
             ++letter;
         }
@@ -202,7 +205,7 @@ public class Lexer {
 
     public void identifier_2(char c) {
         if (Character.isJavaIdentifierPart(c)) {
-            addToBuffer(c, 26);
+            addToBuffer(c, 2);
             return;
         }
         switch (c) {
@@ -232,6 +235,45 @@ public class Lexer {
             return;
         } else {
             addToBuffer(c, -1);
+        }
+    }
+
+    public void zeroFirst_3(char c) {
+        if (AdditionalSymbols.octal(c) == c) {
+            addToBuffer(c, 37);
+            return;
+        }
+        switch (c) {
+            case '_': {
+                addToBuffer(c, 38);
+                return;
+            }
+            case 'b':
+            case 'B': {
+                addToBuffer(c, 35);
+                return;
+            }
+            case 'x':
+            case 'X': {
+                addToBuffer(c, 36);
+                return;
+            }
+            case '.': {
+                addToBuffer(c, 23);
+                return;
+            }
+            case 'l':
+            case 'L': {
+                addToBuffer(c, 41);
+                return;
+            }
+        }
+        if (Character.isJavaIdentifierPart(c) || c == '8' || c == '9') {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
         }
     }
 }
