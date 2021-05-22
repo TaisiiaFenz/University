@@ -161,6 +161,9 @@ public class Lexer {
                 case 27:
                     dotDotDot_27(c);
                     break;
+                case 28:
+                    maybeCommentAfterIdentifier_28(c);
+                    break;
             }
             ++letter;
         }
@@ -802,6 +805,42 @@ public class Lexer {
         } else {
             letter--;
             addToken(buffer.toString(), Type.SEPARATOR);
+            state = 0;
+        }
+    }
+
+    public void maybeCommentAfterIdentifier_28(char c) {
+        if (c == '/' || c == '*') {
+            buffer.deleteCharAt(buffer.length() - 1);
+
+            if (isNullLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.NULL_LITERAL);
+            } else if (isBooleanLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.BOOLEAN_LITERAL);
+            } else if (IsKeyword.parse(buffer.toString())) {
+                addToken(buffer.toString(), Type.KEYWORD);
+            } else {
+                addToken(buffer.toString(), Type.IDENTIFIER);
+            }
+            buffer.append('/');
+            if (c == '/') {
+                addToBuffer(c, 15);
+            } else {
+                addToBuffer(c, 16);
+            }
+        } else {
+            letter -= 2;
+            buffer.deleteCharAt(buffer.length() - 1);
+
+            if (isNullLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.NULL_LITERAL);
+            } else if (isBooleanLiteral(buffer.toString())) {
+                addToken(buffer.toString(), Type.BOOLEAN_LITERAL);
+            } else if (IsKeyword.parse(buffer.toString())) {
+                addToken(buffer.toString(), Type.KEYWORD);
+            } else {
+                addToken(buffer.toString(), Type.IDENTIFIER);
+            }
             state = 0;
         }
     }

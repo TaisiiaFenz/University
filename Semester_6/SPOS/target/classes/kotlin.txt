@@ -73,4 +73,4 @@ class JarvisMethod(private val points: MutableList<Point>) {
     }
 
     private fun getRotation(a: Point, b: Point, c: Point) = (c.y - a.y) * (b.x - a.x) - (b.y - a.y) * (c.x - a.x)
-} 
+}
