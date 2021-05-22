@@ -104,6 +104,15 @@ public class Lexer {
                 case 8:
                     greater_8(c);
                     break;
+                case 9:
+                    less_9(c);
+                    break;
+                case 10:
+                    ampersand_10(c);
+                    break;
+                case 11:
+                    singleOperator_11(c);
+                    break;
             }
             ++letter;
         }
@@ -404,4 +413,78 @@ public class Lexer {
             state = 0;
         }
     }
+
+    public void less_9(char c) {
+        switch (c) {
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '<': {
+                addToBuffer(c, 24);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        }
+        if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            addToken(buffer.toString(), Type.OPERATOR);
+            letter--;
+            state = 0;
+        }
+    }
+
+    public void ampersand_10(char c) {
+        switch (c) {
+            case '&': {
+                addToBuffer(c, 27);
+                return;
+            }
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        }
+        if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.OPERATOR);
+            state = 0;
+        }
+    }
+
+    public void singleOperator_11(char c) {
+        if (c == '=') {
+            addToBuffer(c, 18);
+        } else if (c == ':') {
+            addToBuffer(c, 21);
+        } else if (c == '/') {
+            addToBuffer(c, 19);
+        } else if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.OPERATOR);
+            state = 0;
+        }
+    }
+
+    
 }
