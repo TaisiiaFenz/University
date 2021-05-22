@@ -164,6 +164,51 @@ public class Lexer {
                 case 28:
                     maybeCommentAfterIdentifier_28(c);
                     break;
+                case 29:
+                    maybeEscapeSequence_29(c);
+                    break;
+                case 30:
+                    maybeEscapeSequenceChar_30(c);
+                    break;
+                case 31:
+                    expectEndOfChar_31(c);
+                    break;
+                case 32:
+                    digitInChar_32(c);
+                    break;
+                case 33:
+                    underlineInDigit_33(c);
+                    break;
+                case 34:
+                    binaryDigit_34(c);
+                    break;
+                case 35:
+                    hexDigit_35(c);
+                    break;
+                case 36:
+                    octalDigit_36(c);
+                    break;
+                case 37:
+                    underlineInOctal_37(c);
+                    break;
+                case 38:
+                    underlineInBinary_38(c);
+                    break;
+                case 39:
+                    underlineInHex_39(c);
+                    break;
+                case 40:
+                    integerSuffix_40(c);
+                    break;
+                case 41:
+                    floatSuffix_41(c);
+                    break;
+                case 42:
+                    underlineInFloat_42(c);
+                    break;
+                case 43:
+                    errorCharLiteral_43(c);
+                    break;
             }
             ++letter;
         }
@@ -842,6 +887,176 @@ public class Lexer {
                 addToken(buffer.toString(), Type.IDENTIFIER);
             }
             state = 0;
+        }
+    }
+
+    public void maybeEscapeSequence_29(char c) {
+        if (AdditionalSymbols.special("\\" + c)) {
+            addToBuffer(c, 6);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void maybeEscapeSequenceChar_30(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 33);
+        } else if (AdditionalSymbols.special("\\" + c)) {
+            addToBuffer(c, 32);
+        } else {
+            addToBuffer(c, 44);
+        }
+    }
+
+    public void expectEndOfChar_31(char c) {
+        if (c == '\'') {
+            buffer.append(c);
+            addToken(buffer.toString(), Type.CHAR_LITERAL);
+            state = 0;
+        } else {
+            addToBuffer(c, 44);
+        }
+    }
+
+    public void digitInChar_32(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 33);
+        } else if (c == '\'') {
+            addToBuffer(c, 0);
+            addToken(buffer.toString(), Type.CHAR_LITERAL);
+        } else {
+            addToBuffer(c, 44);
+        }
+    }
+
+    public void underlineInDigit_33(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 4);
+        } else if (c == '_') {
+            addToBuffer(c, 34);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void binaryDigit_34(char c) {
+        if (AdditionalSymbols.binary(c) == c) {
+            addToBuffer(c, 35);
+        } else if (c == '_') {
+            addToBuffer(c, 39);
+        } else if (c == 'l' || c == 'L') {
+            addToBuffer(c, 41);
+        } else if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void hexDigit_35(char c) {
+        if (AdditionalSymbols.hex(c) == c) {
+            addToBuffer(c, 36);
+        } else if (c == '_') {
+            addToBuffer(c, 40);
+        } else if (c == 'l' || c == 'L') {
+            addToBuffer(c, 41);
+        } else if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void octalDigit_36(char c) {
+        if (c == '_') {
+            addToBuffer(c, 38);
+        } else if (AdditionalSymbols.octal(c) == c) {
+            addToBuffer(c, 37);
+        } else if (c == 'l' || c == 'L') {
+            addToBuffer(c, 41);
+        } else if (Character.isJavaIdentifierPart(c) || c == '8' || c == '9') {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void underlineInOctal_37(char c) {
+        if (AdditionalSymbols.octal(c) == c) {
+            addToBuffer(c, 37);
+        } else if (c == '_') {
+            addToBuffer(c, 38);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void underlineInBinary_38(char c) {
+        if (c == '_') {
+            addToBuffer(c, 39);
+        } else if (AdditionalSymbols.binary(c) == c) {
+            addToBuffer(c, 35);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void underlineInHex_39(char c) {
+        if (c == '_') {
+            addToBuffer(c, 40);
+        } else if (AdditionalSymbols.hex(c) == c) {
+            addToBuffer(c, 36);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void integerSuffix_40(char c) {
+        if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.INT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void floatSuffix_41(char c) {
+        if (Character.isJavaIdentifierPart(c)) {
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.FLOAT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void underlineInFloat_42(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 23);
+        } else if (c == '_') {
+            addToBuffer(c, 43);
+        } else {
+            addToBuffer(c, -1);
+        }
+    }
+
+    public void errorCharLiteral_43(char c) {
+        if (c == '\'') {
+            addToBuffer(c, 0);
+            addToken(buffer.toString(), Type.ERROR);
+        } else if (AdditionalSymbols.whitespace(c) == c && c != ' ' && c != '\t') {
+            addToken(buffer.toString(), Type.ERROR);
+            addToken(c, Type.WHITESPACE);
+            state = 0;
+        } else {
+            addToBuffer(c, 44);
         }
     }
 }

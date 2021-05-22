@@ -96,11 +96,11 @@ public class AdditionalSymbols {
         return  res;
     }
 
-    public static char special(String sequence) {
-        return ("\\b" == sequence || "\\t" == sequence
+    public static boolean special(String sequence) {
+        return "\\b" == sequence || "\\t" == sequence
                 || "\\n" == sequence || "\\" == sequence
                 || "'" == sequence || "\"" == sequence
-                || "\\r" == sequence || "\\f" == sequence) ? sequence.charAt(0) : Character.MIN_VALUE;
+                || "\\r" == sequence || "\\f" == sequence;
     }
 
     public static char octal(char c) {
