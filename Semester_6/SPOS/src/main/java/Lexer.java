@@ -137,6 +137,21 @@ public class Lexer {
                 case 19:
                     maybeComment_19(c);
                     break;
+                case 20:
+                    pipe_20(c);
+                    break;
+                case 21:
+                    colonOrSeparator_21(c);
+                    break;
+                case 22:
+                    greaterGreater_22(c);
+                    break;
+                case 23:
+                    pointInDigit_23(c);
+                    break;
+                case 24:
+                    lessLess_24(c);
+                    break;
             }
             ++letter;
         }
@@ -633,6 +648,117 @@ public class Lexer {
             }
         } else {
             addToBuffer(c, -1);
+        }
+    }
+
+    public void pipe_20(char c) {
+        switch (c) {
+            case '|': {
+                addToBuffer(c, 28);
+                return;
+            }
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        }
+        if (AdditionalSymbols.operator(c) == c){
+            addToBuffer(c, -1);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.OPERATOR);
+            state = 0;
+        }
+    }
+
+    public void colonOrSeparator_21(char c) {
+        if (c == ':') {
+            buffer.deleteCharAt(buffer.length() - 1);
+            addToken(buffer.toString(), Type.OPERATOR);
+            addToken("::", Type.SEPARATOR);
+            state = 0;
+        } else {
+            letter--;
+            state = -1;
+        }
+    }
+
+    public void greaterGreater_22(char c) {
+        switch (c) {
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '>': {
+                addToBuffer(c, 11);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        } if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            addToken(buffer.toString(), Type.OPERATOR);
+            letter--;
+            state = 0;
+        }
+    }
+
+    public void pointInDigit_23(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 23);
+        } else if (AdditionalSymbols.doubleOrFloat(c) == c) {
+            addToBuffer(c, 42);
+        } else if (Character.isJavaIdentifierPart(c) || c == '.') {
+            addToBuffer(c, -1);
+        } else if (c == '_') {
+            addToBuffer(c, 43);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.FLOAT_LITERAL);
+            state = 0;
+        }
+    }
+
+    public void lessLess_24(char c) {
+        switch (c) {
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '<': {
+                addToBuffer(c, 11);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        }
+        if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            addToken(buffer.toString(), Type.OPERATOR);
+            letter--;
+            state = 0;
         }
     }
 }
