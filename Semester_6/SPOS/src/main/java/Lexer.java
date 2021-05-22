@@ -89,6 +89,12 @@ public class Lexer {
                 case 4:
                     nonzeroDigit_4(c);
                     break;
+                case 5:
+                    charLiteral_5(c);
+                    break;
+                case 6:
+                    stringLiteral_6(c);
+                    break;
             }
             ++letter;
         }
@@ -295,6 +301,34 @@ public class Lexer {
             addToken(buffer.toString(), Type.INT_LITERAL);
             letter--;
             state = 0;
+        }
+    }
+
+    public void charLiteral_5(char c) {
+        if (c == '\\') {
+            addToBuffer(c, 31);
+        } else if (AdditionalSymbols.whitespace(c) == c && c != ' ' && c != '\t')  {
+            addToken(buffer.toString(), Type.ERROR);
+            addToken(c, Type.WHITESPACE);
+            state = 0;
+        } else {
+            addToBuffer(c, 32);
+        }
+    }
+
+    public void stringLiteral_6(char c) {
+        if (c == '\\') {
+            addToBuffer(c, 30);
+        } else if (c == '\"') {
+            buffer.append(c);
+            addToken(buffer.toString(), Type.STRING_LITERAL);
+            state = 0;
+        } else if ((AdditionalSymbols.whitespace(c) == c) && c != ' ' && c != '\t') {
+            addToken(buffer.toString(), Type.ERROR);
+            addToken(c, Type.WHITESPACE);
+            state = 0;
+        } else {
+            addToBuffer(c, 6);
         }
     }
 }
