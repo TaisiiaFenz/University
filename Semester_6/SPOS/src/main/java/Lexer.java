@@ -212,6 +212,14 @@ public class Lexer {
             }
             ++letter;
         }
+        if (state == 15) {
+            System.out.println("TEEEEEEEEEEEEEEEEEEEEEEEEEESSSSTTT");
+            addToken(buffer.toString(), Type.COMMENT);
+            state = 0;
+        } else if (state == 16 || state == 17 || state == 44) {
+            addToken(buffer.toString(), Type.ERROR);
+            state = 0;
+        }
         return tokens;
     }
 
