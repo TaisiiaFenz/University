@@ -98,6 +98,12 @@ public class Lexer {
                 case 6:
                     stringLiteral_6(c);
                     break;
+                case 7:
+                    dot_7(c);
+                    break;
+                case 8:
+                    greater_8(c);
+                    break;
             }
             ++letter;
         }
@@ -356,6 +362,46 @@ public class Lexer {
             state = 0;
         } else {
             addToBuffer(c, 6);
+        }
+    }
+
+    public void dot_7(char c) {
+        if (AdditionalSymbols.digits(c) == c) {
+            addToBuffer(c, 23);
+        } else if (c == '.') {
+            addToBuffer(c, 25);
+        } else {
+            letter--;
+            addToken(buffer.toString(), Type.SEPARATOR);
+            state = 0;
+        }
+    }
+
+    public void greater_8(char c) {
+        switch (c) {
+            case '=': {
+                addToBuffer(c, 18);
+                return;
+            }
+            case ':': {
+                addToBuffer(c, 21);
+                return;
+            }
+            case '>': {
+                addToBuffer(c, 22);
+                return;
+            }
+            case '/': {
+                addToBuffer(c, 19);
+                return;
+            }
+        }
+        if (AdditionalSymbols.operator(c) == c) {
+            addToBuffer(c, -1);
+        } else {
+            addToken(buffer.toString(), Type.OPERATOR);
+            letter--;
+            state = 0;
         }
     }
 }
