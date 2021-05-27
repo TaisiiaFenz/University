@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #2B2B2B;
+    background-color: #161616;
     font-family: "JetBrains Mono", monospace;
     white-space: pre-wrap;
     padding: 16px;
@@ -16,7 +16,7 @@ body {
 }
 
 .operator {
-    color: #00BFA5;
+    color: #DBEEF9;
     font-weight: bold;
 }
 
@@ -25,11 +25,12 @@ body {
 }
 
 .int_literal, .float_literal, .char_literal, .string_literal, .boolean_literal, .null_literal {
-    color: #6897BB;
+    color: #ADA3D6;
 }
 
 .keyword {
     color: #CC7832;
+    display: inline-block;
 }
 
 .error {

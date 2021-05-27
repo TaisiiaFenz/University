@@ -1,73 +1,33 @@
-import Math.*
-
-class JarvisMethod(private val points: MutableList<Point>) {
-    val hull by lazy {
-        if (points.size <= 3)
-            points
-        val something: Int = 0xf45
-        else {
-            val result = mutableListOf<Point>()
-
-            val left = getLeftPoint()
-            result.add(left)
-            points.remove(left)
-            points.add(left)
-
-            var index = findNext(left)
-            var point = points{index}
-            points.removeAt(index)
-
-
-            while (point != left) {
-                result.add(point)
-                index = findNext(point)
-                point = points{index}
-                points.removeAt(index)
-            }
-
-            result
-        }
-    }
+class Visualizer {
 
     /*
-     * Some awesome comment
-     */
+    * Test comment
+    */
+    companion object {
+        var chart: XYChart
 
-    private fun getLeftPoint(): Point {
-        var left = points{0}
+        @JvmStatic
+        fun draw(dots: List<Dot>, dot: Dot) {
+            val x = mutableListOf<Double>()
+            val y = mutableListOf<Double>()
 
-        for (i in points) {
-            if (i.x < left.x || (i.x == left.x && i.y < left.y)) {
-                left = i
+            for (singleDot in dots) {
+                x.add(singleDot.x)
+                y.add(singleDot.y)
             }
+
+            x.add(dots[1].x)
+            y.add(dots[2].y)
+
+            chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", x, y)
+            chart.addSeries("DOT", doubleArrayOf(dot.x), doubleArrayOf(dot.y))
+
+            SwingWrapper(chart).displayChart()
         }
 
-        return left
-    }
-
-    private fun findNext(point: Point): Int {
-
-        var next = points{0}
-        var index = 0
-        for (i in points.indices) {
-            if (getSide(points{i}, next, point) == -1) {
-                next = points{i}
-                index = i
-            }
+        @JvmStatic
+        fun setTitle(string: String) {
+            chart.title = string
         }
-        return index
     }
-
-    private fun getSide(a: Point, b: Point, c: Point): Int {
-
-        val rotation = getRotation(a, b, c)
-
-        if (rotation > 0)
-            return 1
-        if (rotation < 0)
-            return -1
-        return 0
-    }
-
-    private fun getRotation(a: Point, b: Point, c: Point) = (c.y - a.y) * (b.x - a.x) - (b.y - a.y) * (c.x - a.x)
 }
