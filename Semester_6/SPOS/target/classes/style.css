@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    background-color: #161616;
+    font-family: "JetBrains Mono", monospace;
+    white-space: pre-wrap;
+    padding: 16px;
+}
+
+.comment {
+    color: #629755;
+    font-style: italic;
+}
+
+.identifier {
+    color: #A9B7C6;
+}
+
+.operator {
+    color: #DBEEF9;
+    font-weight: bold;
+}
+
+.separator {
+    color: rgba(158, 158, 158, 0.54);
+}
+
+.int_literal, .float_literal, .char_literal, .string_literal, .boolean_literal, .null_literal {
+    color: #ADA3D6;
+}
+
+.keyword {
+    color: #CC7832;
+    display: inline-block;
+}
+
+.error {
+    color: red;
+    text-decoration: underline;
+}
