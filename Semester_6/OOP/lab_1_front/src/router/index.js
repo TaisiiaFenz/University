@@ -53,6 +53,15 @@ const routes = [
     },
     component: () =>
         import("../views/ClientReservedTours.vue")
+  },
+  {
+    path: "/statistics",
+    name: "Statistics",
+    meta: {
+      layout: "admin"
+    },
+    component: () =>
+        import("../views/Statistics.vue")
   }
 ];
 

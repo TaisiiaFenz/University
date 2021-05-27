@@ -13,7 +13,8 @@
             links: [
                 {title: "Add client", url: "/add-client"},
                 {title: "Tours", url: "/admin-tours"},
-                {title: "Reserved tours", url: "/reserved-tour"}
+                {title: "Reserved tours", url: "/reserved-tour"},
+                {title: "Statistics", url: "/statistics"}
             ]
         })
     }
