@@ -8,12 +8,19 @@
 Считать, что все числа в алгоритмах имеют длину не менее 512 бит.
 */
 
+import algo.*;
+
+import java.math.BigInteger;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println(BigInteger.valueOf(20));
+
         // Fermat prime number test
         System.out.println(
-                new Fermat(10).test(BigInteger.valueOf(7))
+                new Fermat(10).test(BigInteger.valueOf(5))
         );
 
         // Miller-Rabin prime number test

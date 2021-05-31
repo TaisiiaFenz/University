@@ -25,6 +25,7 @@ public class Fermat {
         BigInteger randomValue;
         BigInteger numberMinusOne = number.subtract(BigInteger.ONE);
         BigInteger numberMinusTwo = number.subtract(BigInteger.TWO);
+        System.out.println(numberMinusOne + " " + numberMinusTwo);
 
         for (int i = 0; i < this.k; i++) {
             randomValue = random(BigInteger.TWO, numberMinusTwo, seed);
