@@ -2,6 +2,10 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class Cast {
+
+    public String cryptoText = "";
+    public String plainedText = "";
+
     private byte[] key = new byte[16];
     private byte[] message = new byte[8];
     private byte[] crypto = new byte[8];
@@ -157,6 +161,7 @@ public class Cast {
     public void printCryptotext(){
         System.out.print("Cryptotext -> ");
         for (int i = 0; i < crypto.length; i++) {
+            cryptoText = cryptoText + Integer.toHexString(crypto[i] & 0XFF) + " ";
             System.out.print(Integer.toHexString(crypto[i] & 0XFF) + " ");
         }
         System.out.println();
@@ -165,6 +170,7 @@ public class Cast {
     public void printPlaintext(){
         System.out.print("Plaintext -> ");
         for (int i = 0; i < plaintext.length; i++) {
+            plainedText = plainedText + Integer.toHexString(plaintext[i] & 0XFF) + " ";
             System.out.print(Integer.toHexString(plaintext[i] & 0XFF) + " ");
         }
         System.out.println();

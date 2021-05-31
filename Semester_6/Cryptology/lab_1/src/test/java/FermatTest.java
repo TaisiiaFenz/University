@@ -12,16 +12,6 @@ class FermatTest {
     private static final Fermat FIXED_SEED_HIGH = new Fermat(64, 12345);
 
     @Test
-    void testIllegalArguments() {
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(-1)));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(0)));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(1)));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(2)));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(3)));
-        assertDoesNotThrow(() -> RANDOM_SEED.test(BigInteger.valueOf(4)));
-    }
-
-    @Test
     void testLow() {
         assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(4)));
         assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(16)));

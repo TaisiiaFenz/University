@@ -20,7 +20,7 @@ public class MillerRabin {
 
     public boolean test(BigInteger n) {
         if (n.compareTo(BigInteger.valueOf(4)) < 0)
-            throw new IllegalArgumentException("Number should be greater then 0");
+            throw new IllegalArgumentException("Number should be greater then 3");
         if (n.compareTo(BigInteger.valueOf(4)) == 0)
             return false;
         for (int i = 0; i < k; i++)

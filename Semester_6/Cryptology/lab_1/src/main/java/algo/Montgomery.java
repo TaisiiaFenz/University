@@ -19,6 +19,7 @@ public class Montgomery {
 
         this.r = BigInteger.ONE.shiftLeft(shift);
         this.negativeMod = ExtendedEuclidean.compute(mod, r)[1].negate();
+        System.out.println( mod + " " + this.negativeMod);
     }
 
     public BigInteger multiply(BigInteger a, BigInteger b) {

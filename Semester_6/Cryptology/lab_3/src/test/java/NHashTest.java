@@ -34,10 +34,6 @@ public class NHashTest {
             int size = RNG.nextInt(50) * 16;
             byte[] data = new byte[size];
             RNG.nextBytes(data);
-            //for (byte d : data) {
-                System.out.println(data);
-            //}
-
             ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
             byte[] hash1 = NHash.hash(inputStream);
             inputStream = new ByteArrayInputStream(data);
