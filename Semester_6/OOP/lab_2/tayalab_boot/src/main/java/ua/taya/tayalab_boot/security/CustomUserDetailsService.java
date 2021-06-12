@@ -1,6 +1,5 @@
 package ua.taya.tayalab_boot.security;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,14 +8,15 @@ import org.springframework.stereotype.Service;
 import ua.taya.tayalab_boot.entity.User;
 import ua.taya.tayalab_boot.repository.UserRepository;
 
+import javax.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
-    private final UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
@@ -24,6 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return UserPrincipal.create(user);
     }
 
+    @Transactional
     public UserDetails loadUserById(Long id) {
         User user = userRepository
                 .findById(id)

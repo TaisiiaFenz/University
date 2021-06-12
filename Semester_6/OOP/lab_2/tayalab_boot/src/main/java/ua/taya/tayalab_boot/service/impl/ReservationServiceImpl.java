@@ -11,6 +11,7 @@ import ua.taya.tayalab_boot.entity.*;
 import ua.taya.tayalab_boot.mapper.BillingMapper;
 import ua.taya.tayalab_boot.mapper.ReservationMapper;
 import ua.taya.tayalab_boot.repository.BillingRepository;
+import ua.taya.tayalab_boot.repository.ClientRepository;
 import ua.taya.tayalab_boot.repository.ReservationRepository;
 import ua.taya.tayalab_boot.repository.UserRepository;
 import ua.taya.tayalab_boot.service.ClientService;
@@ -45,11 +46,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ResponseDto saveReservation(ReservationDto reservationDto) {
+        System.out.println("Start save res");
         Reservation reservation = reservationMapper.dtoToEntity(reservationDto);
         reservation.setClient(clientService.findClientByUserId(reservationDto.getUserId()));
         reservation.setReservationDate(LocalDate.now());
         reservation.setStatus(Status.NEW);
         reservationRepository.save(reservation);
+        System.out.println("End save res");
         return new ResponseDto(true, "Reservation was made successfully");
     }
 

@@ -10,20 +10,24 @@ import ua.taya.tayalab_boot.dto.ResponseDto;
 import ua.taya.tayalab_boot.service.ReservationService;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("client")
 public class ClientController {
 
     @Autowired
     ReservationService reservationService;
 
     @GetMapping("my-reservations")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ReservedToursDto getUserReservations(Authentication authentication){
+        System.out.println("Get user reserv");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             return reservationService.getByUserName(userDetails.getUsername());
     }
 
     @PostMapping("reserve-tour")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseDto reserveTour(@RequestBody ReservationDto reservationDto){
+        System.out.println("Reserve tour");
         return reservationService.saveReservation(reservationDto);
     }
 }

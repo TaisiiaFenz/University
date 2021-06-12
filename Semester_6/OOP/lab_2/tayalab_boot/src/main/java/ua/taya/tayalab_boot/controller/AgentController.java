@@ -16,7 +16,7 @@ import javax.management.openmbean.CompositeData;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agent")
+@RequestMapping("agent")
 @RequiredArgsConstructor
 public class AgentController {
     private final TourService tourService;
@@ -25,33 +25,42 @@ public class AgentController {
     private final ClientService clientService;
 
     @PutMapping("/update-hot-tour/{id}")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseDto updateHotTour(@PathVariable("id") Long tourId) {
+        System.out.println("Update hot tour");
         return tourService.updateHot(tourId);
     }
 
-    @PutMapping("/cancel-reservation?{id}")
+    @PutMapping("/cancel-reservation/{id}")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseDto cancelReservation(@PathVariable("id") Long reservationId) {
         return reservationService.cancelReservation(reservationId);
     }
 
     @PostMapping("/accept-reservation")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseDto acceptReservation(@RequestBody BillingDto billingDto){
         return reservationService.acceptReservation(billingDto);
     }
 
     @GetMapping("/reserved-tours")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ReservedToursDto getAllReservations(){
         return reservationService.getAllReservations();
     }
 
     //TODO: it is better to wrap list into dto
     @GetMapping("/discounts")
+    @CrossOrigin(origins = "http://localhost:8082")
     public List<Discount> getAllDiscounts(){
+        System.out.println("discounts");
         return discountService.getAll();
     }
 
-    @PostMapping("sign-up")
+    @PostMapping("/sign-up")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseDto signUpClient(@RequestBody SignUpDto dto){
+        System.out.println("sign up");
         return clientService.saveClient(dto);
     }
 

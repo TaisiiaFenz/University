@@ -6,10 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.taya.tayalab_boot.dto.JwtAuthenticationResponse;
 import ua.taya.tayalab_boot.dto.LoginDto;
 import ua.taya.tayalab_boot.security.JwtTokenProvider;
@@ -24,6 +21,7 @@ public class AuthController {
     JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
