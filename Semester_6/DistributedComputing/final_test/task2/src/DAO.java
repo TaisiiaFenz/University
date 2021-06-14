@@ -10,6 +10,8 @@ public class DAO {
         createAirlineList();
     }
 
+    public DAO() { }
+
     public void createAirlineList() {
         airlineList.add(new Airline("Spain", 1, "type", new Date(), "Monday"));
         airlineList.add(new Airline("Italy", 2, "type", new Date(1212121212121L), "Wednesday"));
