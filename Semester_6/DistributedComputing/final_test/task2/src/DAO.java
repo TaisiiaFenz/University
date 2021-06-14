@@ -7,6 +7,7 @@ public class DAO {
 
     public DAO(List<Airline> airlineList) {
         this.airlineList = airlineList;
+        createAirlineList();
     }
 
     public void createAirlineList() {
