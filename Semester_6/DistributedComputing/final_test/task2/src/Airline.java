@@ -1,16 +1,18 @@
+import java.util.Date;
+
 public class Airline {
     public String destination;
     public int flightNumber;
     public String planeType;
-    public String departureTime;
-    public String[] daysOfweek;
+    public Date departureTime;
+    public String dayOfweek;
 
-    public Airline(String destination, int flightNumber, String planeType, String departureTime, String[] daysOfweek) {
+    public Airline(String destination, int flightNumber, String planeType, Date departureTime, String daysOfweek) {
         this.destination = destination;
         this.flightNumber = flightNumber;
         this.planeType = planeType;
         this.departureTime = departureTime;
-        this.daysOfweek = daysOfweek;
+        this.dayOfweek = daysOfweek;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class Airline {
                 ", flightNumber='" + flightNumber + '\'' +
                 ", planeType=" + planeType +
                 ", departureTime=" + departureTime +
-                ", daysOfweek=" + daysOfweek +
+                ", daysOfweek=" + dayOfweek +
                 '}';
     }
 }
